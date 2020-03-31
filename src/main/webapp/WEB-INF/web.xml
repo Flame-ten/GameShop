@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>GameShopServlet</servlet-name>
-        <servlet-class>epam.andrew.gameShop.web.servlet.GameShopServlet</servlet-class>
+        <servlet-class>epam.andrew.pixel.web.servlet.GameShopServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GameShopServlet</servlet-name>
