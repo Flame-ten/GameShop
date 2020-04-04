@@ -1,6 +1,6 @@
 package epam.andrew.pixel.model;
 
-public class User extends BaseEntity {
+public class User {
 
     private int id;
     private String name;
@@ -50,12 +50,10 @@ public class User extends BaseEntity {
 
     }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }

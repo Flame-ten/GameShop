@@ -2,22 +2,24 @@ package epam.andrew.pixel.dao.entity;
 
 import epam.andrew.pixel.DaoException;
 import epam.andrew.pixel.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UserDao extends BaseDao<User> {
-    private static final String USER = "User";
+public class UserDao extends Dao implements EntityDao<User> {
+    private static final Logger LOG = LoggerFactory.getLogger(UserDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM user WHERE id = ?";
     private static final String UPDATE_USER = "UPDATE user SET name = ? , surname = ? ," +
             "password= ? , email = ? , login = ? , gender = ? , country = ?, position = ? WHERE id = ?";
-    private static final String UPDATE_USERS_AVATAR = "UPDATE user SET avatar_id= ?  WHERE id = ?";
     private static final String DELETE_USER = "DELETE FROM user WHERE id = ?";
-    private static final String INSERT_USER = "INSERT INTO user VALUES (id,?,?,?,?,?,?,?,?,NULL)";
-    private static final String FIND_ALL = "SELECT id * FROM user";
-    private static final String GET_BETS_CUSTOMER = "SELECT id, firstName, lastName, password, email FROM customers JOIN customers_bets ON customers.id=customers_bets.customer_id WHERE customers_bets.bets_id=?";
-    private static final String USERS_COUNT = "SELECT count(*) FROM bets.customers where active =1";
+    private static final String INSERT_USER = "INSERT INTO user VALUES (id,?,?,?,?,?,?,?,?,?)";
+    private static final String ALL_USERS = "SELECT id, name, surname , password , email, login , gender, " +
+            "country, position from user";
 
     @Override
     public User findById(int id) throws DaoException {
@@ -36,6 +38,20 @@ public class UserDao extends BaseDao<User> {
     }
 
     @Override
+    public List<User> getAll() throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement statement = getConnection().prepareStatement(ALL_USERS);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                users.add(getObjectFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            LOG.error("cannot get all users list", e);
+            throw new DaoException("cannot get all users list", e);
+        }
+        return users;
+    }
+
     public User getObjectFromResultSet(ResultSet resultSet) throws DaoException {
         User user = new User();
         try {
@@ -103,9 +119,4 @@ public class UserDao extends BaseDao<User> {
         }
     }
 
-
-    @Override
-    protected String getTableName() {
-        return USER;
-    }
 }

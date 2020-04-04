@@ -1,6 +1,6 @@
 package epam.andrew.pixel.model;
 
-public class Company extends BaseEntity {
+public class Company {
     private int id;
     private String name;
 
@@ -21,12 +21,10 @@ public class Company extends BaseEntity {
         this.name = name;
     }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }

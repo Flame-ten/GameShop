@@ -1,7 +1,6 @@
 package epam.andrew.pixel.model;
 
 import java.sql.Date;
-import java.sql.Time;
 
 public class TransactionDetail {
     private int id;
@@ -10,7 +9,6 @@ public class TransactionDetail {
     private double payment;
     private double amount;
     private Date date;
-    private Time time;
 
     @Override
     public String toString() {
@@ -21,7 +19,6 @@ public class TransactionDetail {
                 ", payment=" + payment +
                 ", amount=" + amount +
                 ", date=" + date +
-                ", time=" + time +
                 '}';
     }
 
@@ -30,14 +27,13 @@ public class TransactionDetail {
     }
 
     public TransactionDetail(int id, String userName, String gameName, double payment,
-                             double amount, Date date, Time time) {
+                             double amount, Date date) {
         this.id = id;
         this.userName = userName;
         this.gameName = gameName;
         this.payment = payment;
         this.amount = amount;
         this.date = date;
-        this.time = time;
     }
 
     public int getId() {
@@ -86,14 +82,6 @@ public class TransactionDetail {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
     }
 
 }

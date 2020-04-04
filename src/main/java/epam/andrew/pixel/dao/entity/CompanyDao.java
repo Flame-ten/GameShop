@@ -2,19 +2,22 @@ package epam.andrew.pixel.dao.entity;
 
 import epam.andrew.pixel.DaoException;
 import epam.andrew.pixel.model.Company;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-
-public class CompanyDao extends BaseDao<Company> {
-    private static final String COMPANY = "Company";
+public class CompanyDao extends Dao implements EntityDao<Company> {
+    private static final Logger LOG = LoggerFactory.getLogger(CompanyDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM company WHERE id = ?";
     private static final String UPDATE_COMPANY = "UPDATE company SET name = ? WHERE id = ?";
-    private static final String UPDATE_USERS_AVATAR = "UPDATE company SET avatar_id= ?  WHERE id = ?";
     private static final String DELETE_COMPANY = "DELETE FROM company WHERE id = ?";
-    private static final String INSERT_COMPANY = "INSERT INTO company VALUES (id,?,?,?,?,?,?,?,?,NULL)";
+    private static final String INSERT_COMPANY = "INSERT INTO company VALUES (id,?,?)";
+    private static final String ALL_COMPANY = "SELECT id, name, `language id` from company";
 
     @Override
     public Company findById(int id) throws DaoException {
@@ -33,6 +36,20 @@ public class CompanyDao extends BaseDao<Company> {
     }
 
     @Override
+    public List<Company> getAll() throws DaoException {
+        List<Company> company = new ArrayList<>();
+        try (PreparedStatement statement = getConnection().prepareStatement(ALL_COMPANY);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                company.add(getObjectFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            LOG.error("cannot get all company list", e);
+            throw new DaoException("cannot get all company list", e);
+        }
+        return company;
+    }
+
     public Company getObjectFromResultSet(ResultSet resultSet) throws DaoException {
         Company company = new Company();
         try {
@@ -72,11 +89,6 @@ public class CompanyDao extends BaseDao<Company> {
         } catch (SQLException e) {
             throw new DaoException("Cannot delete company", e);
         }
-    }
-
-    @Override
-    protected String getTableName() {
-        return COMPANY;
     }
 }
 
