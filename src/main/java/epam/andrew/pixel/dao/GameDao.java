@@ -1,7 +1,6 @@
-package epam.andrew.pixel.dao.entity;
+package epam.andrew.pixel.dao;
 
-import epam.andrew.pixel.DaoException;
-import epam.andrew.pixel.model.Game;
+import epam.andrew.pixel.entity.Game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class GameDao extends Dao implements EntityDao<Game> {
     private static final Logger LOG = LoggerFactory.getLogger(GameDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM game WHERE id = ?";
-    private static final String UPDATE_GAME = "UPDATE game SET name = ? WHERE id = ?";
+    private static final String UPDATE_GAME = "UPDATE game SET name = ?, price = ?, discount = ? WHERE id = ?";
     private static final String DELETE_GAME = "DELETE FROM game WHERE id = ?";
     private static final String INSERT_GAME = "INSERT INTO game VALUES (id,?,?,?,?,?)";
     private static final String ALL_GAMES = "SELECT id, name, price , discount , `language id`from game";

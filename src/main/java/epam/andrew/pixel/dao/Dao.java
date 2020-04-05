@@ -1,4 +1,4 @@
-package epam.andrew.pixel.dao.entity;
+package epam.andrew.pixel.dao;
 
 import java.sql.Connection;
 

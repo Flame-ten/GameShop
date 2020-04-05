@@ -1,23 +1,27 @@
-package epam.andrew.pixel.model;
+package epam.andrew.pixel.entity;
 
 public class AccountLibrary {
     private int id;
     private String username;
-    private String gamename;
+    private String gameName;
+
+    public AccountLibrary() {
+
+    }
 
     @Override
     public String toString() {
         return "AccountLibrary{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", gamename='" + gamename + '\'' +
+                ", gamename='" + gameName + '\'' +
                 '}';
     }
 
-    public AccountLibrary(int id, String username, String gamename) {
+    public AccountLibrary(int id, String username, String gameName) {
         this.id = id;
         this.username = username;
-        this.gamename = gamename;
+        this.gameName = gameName;
     }
 
     public int getId() {
@@ -36,11 +40,11 @@ public class AccountLibrary {
         this.username = username;
     }
 
-    public String getGamename() {
-        return gamename;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setGamename(String gamename) {
-        this.gamename = gamename;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 }

@@ -1,6 +1,4 @@
-package epam.andrew.pixel.dao.entity;
-
-import epam.andrew.pixel.DaoException;
+package epam.andrew.pixel.dao;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package epam.andrew.pixel.model;
+package epam.andrew.pixel.entity;
 
 public class Company {
     private int id;

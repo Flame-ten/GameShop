@@ -1,7 +1,6 @@
-package epam.andrew.pixel.dao.entity;
+package epam.andrew.pixel.dao;
 
-import epam.andrew.pixel.DaoException;
-import epam.andrew.pixel.model.User;
+import epam.andrew.pixel.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

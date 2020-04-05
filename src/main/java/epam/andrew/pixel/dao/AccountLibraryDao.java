@@ -1,7 +1,6 @@
-package epam.andrew.pixel.dao.entity;
+package epam.andrew.pixel.dao;
 
-import epam.andrew.pixel.DaoException;
-import epam.andrew.pixel.model.AccountLibrary;
+import epam.andrew.pixel.entity.AccountLibrary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountLibraryDao extends Dao implements EntityDao<AccountLibrary> {
-    private static final Logger LOG = LoggerFactory.getLogger(CompanyDao.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(AccountLibraryDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM accountlibrary WHERE `user id` = ?";
-    private static final String UPDATE_LIBRARY = "UPDATE company SET name = ? WHERE id = ?";
-    private static final String DELETE_LIBRARY = "DELETE FROM company WHERE id = ?";
-    private static final String INSERT_LIBRARY = "INSERT INTO company VALUES (id,?,?)";
+    private static final String UPDATE_LIBRARY = "UPDATE accountlibrary SET `user name` = ?, `game name` = ?" +
+            " WHERE `user id` = ?";
+    private static final String DELETE_LIBRARY = "DELETE FROM accountlibrary WHERE `user id` = ?";
+    private static final String INSERT_LIBRARY = "INSERT INTO accountlibrary VALUES (`user id`,?,?,?)";
     private static final String ALL_LIBRARIES = "SELECT `user id`, `user name` , `game name`  from accountlibrary";
 
     @Override
@@ -40,7 +41,7 @@ public class AccountLibraryDao extends Dao implements EntityDao<AccountLibrary> 
         try {
             library.setId(resultSet.getInt(1));
             library.setUsername(resultSet.getString(2));
-            library.setGamename(resultSet.getString(3));
+            library.setGameName(resultSet.getString(3));
         } catch (SQLException e) {
             throw new DaoException("Cannot create library from resultSet", e);
         }
@@ -67,7 +68,7 @@ public class AccountLibraryDao extends Dao implements EntityDao<AccountLibrary> 
         try (PreparedStatement statement = getConnection().prepareStatement(INSERT_LIBRARY,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, accountLibrary.getUsername());
-            statement.setString(2, accountLibrary.getGamename());
+            statement.setString(2, accountLibrary.getGameName());
         } catch (SQLException e) {
             throw new DaoException("Cannot create library", e);
         }
@@ -78,7 +79,7 @@ public class AccountLibraryDao extends Dao implements EntityDao<AccountLibrary> 
     public void update(AccountLibrary accountLibrary) throws DaoException {
         try (PreparedStatement statement = getConnection().prepareStatement(UPDATE_LIBRARY)) {
             statement.setString(1, accountLibrary.getUsername());
-            statement.setString(2, accountLibrary.getGamename());
+            statement.setString(2, accountLibrary.getGameName());
         } catch (SQLException e) {
             throw new DaoException("Cannot update library", e);
         }

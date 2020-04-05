@@ -1,4 +1,4 @@
-package epam.andrew.pixel.model;
+package epam.andrew.pixel.entity;
 
 import java.sql.Date;
 

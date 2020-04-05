@@ -1,7 +1,6 @@
-package epam.andrew.pixel.dao.entity;
+package epam.andrew.pixel.dao;
 
-import epam.andrew.pixel.DaoException;
-import epam.andrew.pixel.model.TransactionDetail;
+import epam.andrew.pixel.entity.TransactionDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,14 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDetailDao extends Dao implements EntityDao<TransactionDetail> {
+
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDetailDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM transactionDetail WHERE id = ?";
     private static final String UPDATE_TRANS_DETAIL = "UPDATE transactionDetail SET `user name` = ?, `game name` = ?," +
             "amount = ?, payment = ?, date = ?  WHERE id = ?";
     private static final String DELETE_TRANS_DETAIL = "DELETE FROM transactionDetail WHERE id = ?";
-    private static final String INSERT_TRANS_DETAIL = "INSERT INTO transactionDetail VALUES (id,?,?,?,?,?,?,?)";
-    private static final String ALL_TRANSACTIONS = "SELECT id, `user name`, `game name`, amount," +
-            "payment, date ,time, `language id`  from transactionDetail";
+    private static final String INSERT_TRANS_DETAIL = "INSERT INTO transactionDetail VALUES (id,?,?,?,?,?,?)";
+    private static final String ALL_TRANS_DETAILS = "SELECT id, `user name`, `game name`, amount," +
+            "payment, date , `language id`  from transactionDetail";
 
     @Override
     public TransactionDetail findById(int id) throws DaoException {
@@ -40,7 +40,7 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
     @Override
     public List<TransactionDetail> getAll() throws DaoException {
         List<TransactionDetail> transactionDetails = new ArrayList<>();
-        try (PreparedStatement statement = getConnection().prepareStatement(ALL_TRANSACTIONS);
+        try (PreparedStatement statement = getConnection().prepareStatement(ALL_TRANS_DETAILS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 transactionDetails.add(getObjectFromResultSet(resultSet));
@@ -61,7 +61,6 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
             transactionDetail.setAmount(resultSet.getDouble(4));
             transactionDetail.setPayment(resultSet.getDouble(5));
             transactionDetail.setDate(resultSet.getDate(6));
-            transactionDetail.setTime(resultSet.getTime(7));
         } catch (SQLException e) {
             throw new DaoException("Cannot create transactionDetail from resultSet", e);
         }
@@ -77,7 +76,6 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
             statement.setDouble(3, transactionDetail.getAmount());
             statement.setDouble(4, transactionDetail.getPayment());
             statement.setDate(5, transactionDetail.getDate());
-            statement.setTime(6, transactionDetail.getTime());
         } catch (SQLException e) {
             throw new DaoException("Cannot create transactionDetail", e);
         }
@@ -92,7 +90,6 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
             statement.setDouble(3, transactionDetail.getAmount());
             statement.setDouble(4, transactionDetail.getPayment());
             statement.setDate(5, transactionDetail.getDate());
-            statement.setTime(6, transactionDetail.getTime());
         } catch (SQLException e) {
             throw new DaoException("Cannot update transactionDetail", e);
         }

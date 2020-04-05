@@ -1,4 +1,4 @@
-package epam.andrew.pixel;
+package epam.andrew.pixel.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
