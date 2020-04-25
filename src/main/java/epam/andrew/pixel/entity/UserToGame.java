@@ -1,24 +1,24 @@
 package epam.andrew.pixel.entity;
 
-public class AccountLibrary {
+public class UserToGame {
     private int id;
     private String username;
     private String gameName;
 
-    public AccountLibrary() {
+    public UserToGame() {
 
     }
 
     @Override
     public String toString() {
-        return "AccountLibrary{" +
+        return "UserToGame{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", gamename='" + gameName + '\'' +
                 '}';
     }
 
-    public AccountLibrary(int id, String username, String gameName) {
+    public UserToGame(int id, String username, String gameName) {
         this.id = id;
         this.username = username;
         this.gameName = gameName;

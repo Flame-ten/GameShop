@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class DaoFactory implements AutoCloseable {
     public static final Logger LOG = LoggerFactory.getLogger(DaoFactory.class);
     private ConnectionPool connectionPool;
-    private Connection connection = null;
+    private Connection connection;
 
     public DaoFactory() throws ConnectionPoolException {
         connectionPool = ConnectionPool.getInstance();
@@ -23,11 +23,10 @@ public class DaoFactory implements AutoCloseable {
         }
     }
 
-    public <T extends Dao> T getDao(Class<T> tClass) throws DaoException {
+    public <T extends BaseDao> T getDao(Class<T> tClass) throws DaoException, ConnectionPoolException {
         T t;
         try {
             t = tClass.getDeclaredConstructor().newInstance();
-            t.setConnection(connection);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new DaoException("Cannot create instance", e);
         }

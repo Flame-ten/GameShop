@@ -1,30 +1,38 @@
 package epam.andrew.pixel.dao;
 
+import epam.andrew.pixel.connection.ConnectionPool;
+import epam.andrew.pixel.connection.ConnectionPoolException;
 import epam.andrew.pixel.entity.TransactionDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionDetailDao extends Dao implements EntityDao<TransactionDetail> {
+public class TransactionDetailDao implements BaseDao<TransactionDetail> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDetailDao.class);
-    private static final String FIND_BY_ID = "SELECT * FROM transactionDetail WHERE id = ?";
-    private static final String UPDATE_TRANS_DETAIL = "UPDATE transactionDetail SET `user name` = ?, `game name` = ?," +
-            "amount = ?, payment = ?, date = ?  WHERE id = ?";
-    private static final String DELETE_TRANS_DETAIL = "DELETE FROM transactionDetail WHERE id = ?";
-    private static final String INSERT_TRANS_DETAIL = "INSERT INTO transactionDetail VALUES (id,?,?,?,?,?,?)";
-    private static final String ALL_TRANS_DETAILS = "SELECT id, `user name`, `game name`, amount," +
-            "payment, date , `language id`  from transactionDetail";
+    private static final String FIND_BY_ID = "SELECT * FROM transaction_detail WHERE id = ?";
+    private static final String UPDATE_TRANS_DETAIL = "UPDATE transaction_detail SET user_name = ?, " +
+            "amount = ?, payment = ?  WHERE id = ?";
+    private static final String DELETE_TRANS_DETAIL = "DELETE FROM transaction_detail WHERE id = ?";
+    private static final String INSERT_TRANS_DETAIL = "INSERT INTO transaction_detail VALUES (id,?,?,?,?,?)";
+    private static final String ALL_TRANS_DETAILS = "SELECT id, user_name, amount," +
+            "payment from transaction_detail";
+
+    private ConnectionPool connectionPool;
+    private Connection connection;
 
     @Override
-    public TransactionDetail findById(int id) throws DaoException {
+    public TransactionDetail findById(int id) throws DaoException, ConnectionPoolException {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.getConnection();
         TransactionDetail transactionDetail = new TransactionDetail();
-        try (PreparedStatement statement = getConnection().prepareStatement(FIND_BY_ID)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -38,9 +46,11 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
     }
 
     @Override
-    public List<TransactionDetail> getAll() throws DaoException {
+    public List<TransactionDetail> getAll(int pageNumber, int pageSize) throws DaoException, ConnectionPoolException {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.getConnection();
         List<TransactionDetail> transactionDetails = new ArrayList<>();
-        try (PreparedStatement statement = getConnection().prepareStatement(ALL_TRANS_DETAILS);
+        try (PreparedStatement statement = connection.prepareStatement(ALL_TRANS_DETAILS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 transactionDetails.add(getObjectFromResultSet(resultSet));
@@ -57,10 +67,8 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
         try {
             transactionDetail.setId(resultSet.getInt(1));
             transactionDetail.setUserName(resultSet.getString(2));
-            transactionDetail.setGameName(resultSet.getString(3));
-            transactionDetail.setAmount(resultSet.getDouble(4));
-            transactionDetail.setPayment(resultSet.getDouble(5));
-            transactionDetail.setDate(resultSet.getDate(6));
+            transactionDetail.setAmount(resultSet.getDouble(3));
+            transactionDetail.setPayment(resultSet.getDouble(4));
         } catch (SQLException e) {
             throw new DaoException("Cannot create transactionDetail from resultSet", e);
         }
@@ -68,14 +76,20 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
     }
 
     @Override
-    public TransactionDetail create(TransactionDetail transactionDetail) throws DaoException {
-        try (PreparedStatement statement = getConnection().prepareStatement(INSERT_TRANS_DETAIL,
+    public TransactionDetail create(TransactionDetail transactionDetail) throws DaoException, ConnectionPoolException {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_TRANS_DETAIL,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, transactionDetail.getUserName());
-            statement.setString(2, transactionDetail.getGameName());
-            statement.setDouble(3, transactionDetail.getAmount());
-            statement.setDouble(4, transactionDetail.getPayment());
-            statement.setDate(5, transactionDetail.getDate());
+            statement.setDouble(2, transactionDetail.getAmount());
+            statement.setDouble(3, transactionDetail.getPayment());
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                transactionDetail.setId(id);
+            }
         } catch (SQLException e) {
             throw new DaoException("Cannot create transactionDetail", e);
         }
@@ -83,21 +97,24 @@ public class TransactionDetailDao extends Dao implements EntityDao<TransactionDe
     }
 
     @Override
-    public void update(TransactionDetail transactionDetail) throws DaoException {
-        try (PreparedStatement statement = getConnection().prepareStatement(UPDATE_TRANS_DETAIL)) {
+    public void update(TransactionDetail transactionDetail) throws DaoException, ConnectionPoolException {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_TRANS_DETAIL)) {
             statement.setString(1, transactionDetail.getUserName());
-            statement.setString(2, transactionDetail.getGameName());
-            statement.setDouble(3, transactionDetail.getAmount());
-            statement.setDouble(4, transactionDetail.getPayment());
-            statement.setDate(5, transactionDetail.getDate());
+            statement.setDouble(2, transactionDetail.getAmount());
+            statement.setDouble(3, transactionDetail.getPayment());
+            statement.execute();
         } catch (SQLException e) {
             throw new DaoException("Cannot update transactionDetail", e);
         }
     }
 
     @Override
-    public void delete(TransactionDetail transactionDetail) throws DaoException {
-        try (PreparedStatement statement = getConnection().prepareStatement(DELETE_TRANS_DETAIL)) {
+    public void delete(TransactionDetail transactionDetail) throws DaoException, ConnectionPoolException {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_TRANS_DETAIL)) {
             statement.setInt(1, transactionDetail.getId());
             statement.execute();
         } catch (SQLException e) {

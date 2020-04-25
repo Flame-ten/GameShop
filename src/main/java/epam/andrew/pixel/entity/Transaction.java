@@ -5,13 +5,11 @@ import java.sql.Time;
 
 public class Transaction {
     private int id;
-    private double payment;
     private Date date;
     private Time time;
 
-    public Transaction(int id, double payment, Date date, Time time) {
+    public Transaction(int id, Date date, Time time) {
         this.id = id;
-        this.payment = payment;
         this.date = date;
         this.time = time;
     }
@@ -24,7 +22,6 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", payment=" + payment +
                 ", date=" + date +
                 ", time=" + time +
                 '}';
@@ -36,14 +33,6 @@ public class Transaction {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public double getPayment() {
-        return payment;
-    }
-
-    public void setPayment(double payment) {
-        this.payment = payment;
     }
 
     public Date getDate() {
