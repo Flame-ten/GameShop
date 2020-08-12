@@ -10,8 +10,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Title</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <title></title>
 </head>
 <body>
+<jsp:forward page="/WEB-INF/home.jsp"/>
 </body>
 </html>

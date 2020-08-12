@@ -1,0 +1,59 @@
+
+body {
+    font-family: 'PT Sans', sans-serif;
+}
+
+.carousel {
+    height: 584px !important;
+    background: black;
+}
+
+.container-fluid {
+    max-width: 1350px;
+}
+
+
+.side-bar-border {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+
+.widthparam {
+    max-width: 1350px;
+}
+
+.carousel-inner img {
+
+    height: 584px;
+    min-width: 100%;
+
+}
+
+.p-0 {
+    padding: 0;
+}
+
+hr {
+
+    background-color: #999999;
+    color: #999999;
+
+}
+
+.marketing {
+
+    text-align: center;
+    padding: 50px;
+}
+
+.p-10 {
+    padding-top: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+
+
