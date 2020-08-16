@@ -44,7 +44,7 @@ public class ChangePasswordAction implements Action {
             userService.updateUser(user);
 
             String path = Constant.SUCCESS_REGISTERED_PAGE;
-            req.setAttribute(Constant.AFTER_USER_DATA_CHANGE_FLAG, TRUE);
+            req.setAttribute(Constant.AFTER_PROFILE_CHANGE_FLAG, TRUE);
             req.getSession(false).setAttribute(Constant.LOGGED_USER, user);
             return new ActionResult(path);
 

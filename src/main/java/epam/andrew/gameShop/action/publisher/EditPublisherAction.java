@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class EditPublisherAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(EditPublisherAction.class);
-    private static final String COULDN_T_EDIT_PUBLISHER = "Couldn't edit publisher";
+    private static final String CANNOT_EDIT_PUBLISHER = "Cannot edit publisher";
     private static final String AFTER_PUBLISHER_EDIT_FLAG = "after publisher edit flag";
     private static final String TRUE = "true";
     private final PublisherUtil publisherUtil = new PublisherUtil();
@@ -37,15 +37,15 @@ public class EditPublisherAction implements Action {
             }
             req.setAttribute(AFTER_PUBLISHER_EDIT_FLAG, TRUE);
         } catch (IOException | ServiceException | ServletException e) {
-            LOG.info(COULDN_T_EDIT_PUBLISHER, e);
-            throw new ActionException(COULDN_T_EDIT_PUBLISHER, e);
+            LOG.info(CANNOT_EDIT_PUBLISHER, e);
+            throw new ActionException(CANNOT_EDIT_PUBLISHER, e);
         }
         return new ActionResult(Constant.SUCCESS_REGISTERED_PAGE);
 
     }
 
     private Publisher getFilledPublisher(HttpServletRequest req) {
-        id = req.getParameter(Constant.ID);
+        id = req.getParameter(Constant.PUBLISHER_ID);
         Publisher publisher = publisherUtil.getFilledPublisher(req);
         publisher.setId(Integer.parseInt(id));
         return publisher;

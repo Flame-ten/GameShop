@@ -27,7 +27,7 @@ public class GameShopServlet extends HttpServlet {
     private static final String NOT_FOUND = "Not found";
     private static final String DO = "/do/";
     private static final String HTTP = "http://";
-    private static final String WEB_INF = "/WEB-INF/";
+    private static final String WEB_INF = "/WEB-INF/jsp/";
     private static final String JSP = ".jsp";
 
     @Override

@@ -16,7 +16,7 @@ public class DeleteGameAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(DeleteGameAction.class);
     private static final String ERROR_DELETE = "Couldn't delete game by id";
     private static final String DELETED_GAME = "game - {} has been deleted";
-    private static final String AFTER_GAME_DELETE_FLAG = "after_game_delete_flag";
+    private static final String AFTER_GAME_DELETE_FLAG = "afterGameDeleteFlag";
     private static final String TRUE = "true";
 
     @Override

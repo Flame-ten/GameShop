@@ -44,6 +44,6 @@ public class ShowTransactionManagePageAction implements Action {
         req.setAttribute(Constant.PAGE_SIZE, pageSize);
         req.setAttribute(Constant.PAGE, page);
         LOG.info(Constant.INFO, page, pageSize, pageCount);
-        return new ActionResult(Constant.MANAGE_TRANSACTIONS);
+        return new ActionResult(Constant.TRANSACTION_MANAGE);
     }
 }

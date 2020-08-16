@@ -40,7 +40,7 @@ public class GameImageServlet extends HttpServlet {
                     sos.write(buffer, 0, length);
                 }
             } else {
-                imagePath = gameImage.getPath() + "/" +
+                imagePath = gameImage.getPath() + "/img" +
                         gameImage.getName();
                 try (FileInputStream content = new FileInputStream(imagePath)) {
                     while ((length = content.read(buffer)) != -1) {

@@ -21,7 +21,7 @@ public class DeletePublisherAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {
-        String id = req.getParameter(Constant.ID);
+        String id = req.getParameter(Constant.PUBLISHER_ID);
         try {
             PublisherService publisherService = new PublisherService();
             publisherService.deletePublisherById(id);

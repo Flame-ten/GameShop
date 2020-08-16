@@ -27,7 +27,7 @@ public class ShowGameCatalogAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {
-        List<Game> gamesByGenre;
+        List<Game> gamesByGenre = new ArrayList<>();
         PageUtil<Game> pageUtil = new PageUtil<>();
         Map<String, Integer> errorMap = new HashMap<>();
 
@@ -43,7 +43,12 @@ public class ShowGameCatalogAction implements Action {
         try {
             ShopService shopService = new ShopService();
             games = shopService.getAllGames();
-            gamesByGenre = new ArrayList<>(games);
+            for (Game game : games) {
+                if (game.getGenre().getId().toString().equals(genre) &&
+                        !game.isDeleted()) {
+                    gamesByGenre.add(game);
+                }
+            }
         } catch (ServiceException e) {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);

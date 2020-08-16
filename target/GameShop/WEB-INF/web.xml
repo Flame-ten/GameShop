@@ -11,6 +11,7 @@
         <servlet-name>GameShopServlet</servlet-name>
         <url-pattern>/do/*</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>

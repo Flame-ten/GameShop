@@ -19,7 +19,7 @@ public class DeleteTransactionAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {
-        String id = req.getParameter(Constant.ID);
+        String id = req.getParameter(Constant.USER_ID);
         try {
             ShopService shopService = new ShopService();
             shopService.deleteTransactionById(id);

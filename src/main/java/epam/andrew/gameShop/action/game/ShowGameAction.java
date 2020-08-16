@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class ShowGameAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowGameAction.class);
-    private static final String ERROR = "Could't show game page action";
+    private static final String ERROR = "Cannot show game page action";
     private static final String GAME_AMOUNT_ERROR = "game_amount_error";
     private static final String TRUE = "true";
 

@@ -18,11 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowTransactionAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowTransactionAction.class);
     private static final String ERROR = "Cannot show transaction page";
-    private static final String TRANSACTION_ID = "transactionId";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {
-        String orderId = req.getParameter(TRANSACTION_ID);
+        String orderId = req.getParameter(Constant.TRANSACTION_ID);
         Transaction transaction;
         try {
             ShopService shopService = new ShopService();

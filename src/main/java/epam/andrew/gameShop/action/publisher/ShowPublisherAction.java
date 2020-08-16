@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class ShowPublisherAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowPublisherAction.class);
-    private static final String ERROR = "Could't show publisher page action";
+    private static final String ERROR = "Cannot show publisher page action";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException, ServiceException {
@@ -27,7 +27,7 @@ public class ShowPublisherAction implements Action {
         List<Publisher> publisherList = new ArrayList<>();
         try {
             PublisherService publisherService = new PublisherService();
-            publisher = publisherService.getPublisherById(Integer.parseInt(req.getParameter(Constant.ID)));
+            publisher = publisherService.getPublisherById(Integer.parseInt(req.getParameter(Constant.PUBLISHER_ID)));
             publishers = publisherService.getAllPublishers();
             Random random = new Random();
             for (int i = 1; i < 5; i++) {

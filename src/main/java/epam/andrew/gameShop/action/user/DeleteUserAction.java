@@ -26,7 +26,7 @@ public class DeleteUserAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException, ServiceException {
         User user = (User) req.getSession().getAttribute(Constant.LOGGED_USER);
-        String id = req.getParameter(Constant.ID);
+        String id = req.getParameter(Constant.USER_ID);
         if (id.equals(String.valueOf(user.getId()))) {
             req.setAttribute(USER_DELETE_ERROR, Constant.TRUE);
             LOG.info(DELETE_LOG_ERROR, user);

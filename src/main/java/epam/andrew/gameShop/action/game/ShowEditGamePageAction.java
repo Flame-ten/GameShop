@@ -30,7 +30,7 @@ public class ShowEditGamePageAction implements Action {
             req.setAttribute(Constant.GAME, game);
             List<Genre> genres = shopService.getAllGenres();
             req.setAttribute(Constant.GENRE, genres);
-            String imagePath = game.getImages().get(0).getPath() + "/" +
+            String imagePath = game.getImages().get(0).getPath() + "/img" +
                     game.getImages().get(0).getName();
             req.setAttribute("imagePath", imagePath);
             return new ActionResult(Constant.EDIT_GAME);

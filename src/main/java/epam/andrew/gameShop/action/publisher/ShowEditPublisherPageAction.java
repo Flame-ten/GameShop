@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowEditPublisherPageAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowEditPublisherPageAction.class);
-    private static final String CANNOT_SHOW_EDIT_PUBLISHER_PAGE = "Couldn't show edit publisher page";
+    private static final String CANNOT_SHOW_EDIT_PUBLISHER_PAGE = "Cannot show edit publisher page";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException, ServiceException {
         PublisherService publisherService = new PublisherService();
 
         try {
-            Publisher publisher = publisherService.getFilledPublisher(req.getParameter(Constant.ID));
+            Publisher publisher = publisherService.getFilledPublisher(req.getParameter(Constant.PUBLISHER_ID));
             req.setAttribute(Constant.PUBLISHER, publisher);
             String imagePath = publisher.getImages().get(0).getPath() + "/" +
                     publisher.getImages().get(0).getName();

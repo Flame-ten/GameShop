@@ -21,7 +21,7 @@ public class ShowEditBalancePageAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException, ServiceException {
         try {
-            String id = req.getParameter(Constant.ID);
+            String id = req.getParameter(Constant.USER_ID);
             UserService userService = new UserService();
             User user = userService.getUserById(Integer.parseInt(id));
             req.setAttribute(Constant.USER, user);

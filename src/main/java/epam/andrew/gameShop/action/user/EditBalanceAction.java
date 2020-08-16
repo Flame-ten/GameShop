@@ -35,7 +35,7 @@ public class EditBalanceAction implements Action {
                 return new ActionResult(REFILL);
             }
             updateUserBalance(req, user);
-            return new ActionResult(Constant.MANAGE_USERS_REDIRECT, true);
+            return new ActionResult(Constant.LIST_USERS_REDIRECT, true);
         } catch (ServiceException e) {
             LOG.info(REFILL_ERROR, e);
             throw new ActionException(REFILL_ERROR, e);

@@ -15,19 +15,19 @@ import java.util.Locale;
 
 public class SetLanguageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(SetLanguageAction.class);
-    private static final String LANGUAGE = "language";
+    private static final String LOCALE = "locale";
     private static final int MAX_AGE = 24 * 60 * 60;
     private static final String CHANGED = "{} changed language to {}";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {
-        String language = req.getParameter(LANGUAGE);
-        req.getSession().setAttribute(LANGUAGE, language);
-        Config.set(req.getSession(), Config.FMT_LOCALE, new Locale(language));
-        Cookie cookie = new Cookie(LANGUAGE, language);
+        String locale = req.getParameter(LOCALE);
+        req.getSession().setAttribute(LOCALE, locale);
+        Config.set(req.getSession(), Config.FMT_LOCALE, new Locale(locale));
+        Cookie cookie = new Cookie(LOCALE, locale);
         cookie.setMaxAge(MAX_AGE);
         resp.addCookie(cookie);
-        LOG.info(CHANGED, req.getSession(false).getAttribute(Constant.LOGGED_USER), language);
+        LOG.info(CHANGED, req.getSession(false).getAttribute(Constant.LOGGED_USER), locale);
         return new ActionResult(req.getHeader(Constant.REFERER_PAGE), true);
     }
 }

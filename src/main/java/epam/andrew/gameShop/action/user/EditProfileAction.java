@@ -30,11 +30,11 @@ public class EditProfileAction implements Action {
             Validate validation = new Validate();
             user = userService.getUserById(Integer.parseInt(req.getParameter(Constant.USER_ID)));
             if (validation.validateUser(req)) {
-                return new ActionResult(Constant.USER_DATA);
+                return new ActionResult(Constant.PROFILE);
             }
             userUtil.fillUserExceptPassword(req, user);
             String path = Constant.SUCCESS_REGISTERED_PAGE;
-            req.setAttribute(Constant.AFTER_USER_DATA_CHANGE_FLAG, TRUE);
+            req.setAttribute(Constant.AFTER_PROFILE_CHANGE_FLAG, TRUE);
             req.getSession(false).setAttribute(Constant.LOGGED_USER, user);
             return new ActionResult(path);
 

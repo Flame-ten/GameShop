@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ChangeTransactionStatusAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ChangeTransactionStatusAction.class);
     private static final String EDIT_ERROR = "Couldn't edit transaction status";
-    private static final String UPDATED = "{} order has been updated - status: {}";
+    private static final String UPDATED = "{} transaction has been updated - status: {}";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {
