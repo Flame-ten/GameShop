@@ -13,6 +13,11 @@ public final class Constant {
     public static final int INDEX_8 = 8;
     public static final int INDEX_9 = 9;
     public static final int INDEX_10 = 10;
+    public static final Integer ADMIN_ID = 1;
+
+    public Integer getAdminId() {
+        return ADMIN_ID;
+    }
 
     //Scopes attributes names
     public static final String USERS = "users";

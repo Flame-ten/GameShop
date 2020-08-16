@@ -21,7 +21,7 @@ public class ConnectionPool {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionPool.class);
     private static final String PROPERTY_FILE_NAME = "database.properties";
     private static final String URL = "url";
-    private static final String USERNAME = "username";
+    private static final String USER = "user";
     private static final String PASSWORD = "password";
     private static final String DRIVER = "driver";
     private static final String CONNECTIONS_LIMIT = "connections";
@@ -36,7 +36,7 @@ public class ConnectionPool {
     private final List<Connection> allConnections;
     private final BlockingQueue<Connection> freeConnections;
     private String driverName;
-    private String userName;
+    private String user;
     private String password;
     private String url;
     private int poolSize;
@@ -93,7 +93,7 @@ public class ConnectionPool {
     private void initConnections() throws ConnectionPoolException {
         for (int i = 0; i < poolSize; i++) {
             try {
-                allConnections.add(DriverManager.getConnection(url, userName, password));
+                allConnections.add(DriverManager.getConnection(url, user, password));
             } catch (SQLException e) {
                 LOG.error(CANNOT_INIT_CONNECTIONS, e);
                 throw new ConnectionPoolException(CANNOT_INIT_CONNECTIONS, e);
@@ -119,7 +119,7 @@ public class ConnectionPool {
                 Properties properties = new Properties();
                 properties.load(connectionPoolProperties);
                 driverName = properties.getProperty(DRIVER);
-                userName = properties.getProperty(USERNAME);
+                user = properties.getProperty(USER);
                 password = properties.getProperty(PASSWORD);
                 url = properties.getProperty(URL);
                 poolSize = Integer.parseInt(properties.getProperty(CONNECTIONS_LIMIT));

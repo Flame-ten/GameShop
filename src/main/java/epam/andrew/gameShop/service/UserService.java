@@ -63,12 +63,10 @@ public class UserService {
                 UserDao userDao = daoFactory.getDao(UserDao.class);
                 daoFactory.startTransaction();
                 List<User> users = userDao.getByParams(params);
-                if (users.isEmpty() && users.get(0).isDeleted()) {
+                if (!users.isEmpty() && users.get(0).isDeleted()) {
                     return getUserById(users.get(0).getId());
                 }
-                daoFactory.commitTransaction();
             } catch (DaoException e) {
-                daoFactory.rollbackTransaction();
                 LOG.error(CANNOT_GET_USER, e);
                 throw new ServiceException(CANNOT_GET_USER, e);
             }

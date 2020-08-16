@@ -25,7 +25,7 @@ public class UserDao extends Dao implements BaseDao<User> {
     private static final String UPDATE_USER = "UPDATE user SET name = ?, surname = ?," +
             "login = ?, password= ?, email = ?, phone = ?, gender = ?, country = ?, cash = ?, deleted = ?  WHERE id = ?";
     private static final String DELETE_USER = "DELETE FROM user WHERE id = ?";
-    private static final String INSERT_USER = "INSERT INTO user VALUES (id,?,?,?,?,?,?,?,?,?,?,?,0)";
+    private static final String INSERT_USER = "INSERT INTO user VALUES (id,?,?,?,?,?,?,?,?,?,?,0)";
     private static final String ALL_USERS = "SELECT * FROM user WHERE deleted = 0 LIMIT ? OFFSET ?";
     private static final String DELETED = "SELECT count(*) FROM user WHERE deleted = 0";
     private static final String CANNOT_FIND_BY_ID = "Cannot find by id";

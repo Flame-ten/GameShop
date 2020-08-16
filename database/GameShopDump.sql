@@ -30,7 +30,7 @@ CREATE TABLE `game`
     `description_ru` text        NOT NULL,
     `description_en` text        NOT NULL,
     `price`          double      NOT NULL,
-    `deleted`        int(11)     NOT NULL,
+    `deleted`        tinyint(1)  NOT NULL DEFAULT '0',
     `genre_id`       int(11)     NOT NULL,
     `image_id`       int(11)     NOT NULL,
     `publisher_id`   int(11)     NOT NULL,
@@ -79,11 +79,11 @@ DROP TABLE IF EXISTS `gameintransaction`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gameintransaction`
 (
-    `id`             int(11) NOT NULL AUTO_INCREMENT,
-    `amount`         int(11) NOT NULL,
-    `deleted`        int(11) NOT NULL,
-    `game_id`        int(11) NOT NULL,
-    `transaction_id` int(11) NOT NULL,
+    `id`             int(11)    NOT NULL AUTO_INCREMENT,
+    `amount`         int(11)    NOT NULL,
+    `deleted`        tinyint(1) NOT NULL DEFAULT '0',
+    `game_id`        int(11)    NOT NULL,
+    `transaction_id` int(11)    NOT NULL,
     PRIMARY KEY (`id`),
     KEY `fk_GameInTransaction_game1_idx` (`game_id`),
     KEY `fk_GameInTransaction_transaction1_idx` (`transaction_id`),
@@ -120,7 +120,7 @@ CREATE TABLE `genre`
     `id`      int(11)     NOT NULL AUTO_INCREMENT,
     `name_en` varchar(30) NOT NULL,
     `name_ru` varchar(30) NOT NULL,
-    `deleted` int(11)     NOT NULL,
+    `deleted` tinyint(1)  NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 100
@@ -157,7 +157,7 @@ CREATE TABLE `image`
     `id`      int(11)     NOT NULL AUTO_INCREMENT,
     `name`    varchar(20) NOT NULL,
     `path`    varchar(45) NOT NULL,
-    `deleted` int(11)     NOT NULL,
+    `deleted` tinyint(1)  NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 100
@@ -236,7 +236,7 @@ CREATE TABLE `publisher`
     `address` varchar(45) NOT NULL,
     `phone`   varchar(20) NOT NULL,
     `country` varchar(20) NOT NULL,
-    `deleted` int(11)     NOT NULL,
+    `deleted` tinyint(1)  NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 100
@@ -269,10 +269,13 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`
 (
     `id`      int(11)     NOT NULL AUTO_INCREMENT,
+    `name`    varchar(15) NOT NULL,
     `name_en` varchar(15) NOT NULL,
     `name_ru` varchar(15) NOT NULL,
-    `deleted` int(11)     NOT NULL,
-    PRIMARY KEY (`id`)
+    `deleted` tinyint(1)  NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `name_UNIQUE` (`name_ru`),
+    UNIQUE KEY `name_en_UNIQUE` (`name_en`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 100
   DEFAULT CHARSET = utf8mb4
@@ -287,8 +290,8 @@ LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role`
     DISABLE KEYS */;
 INSERT INTO `role`
-VALUES (1, 'Admin', 'Админ', 0),
-       (2, 'User', 'Пользователь', 0);
+VALUES (1, 'admin', 'Admin', 'Админ', 0),
+       (2, 'user', 'User', 'Пользователь', 0);
 /*!40000 ALTER TABLE `role`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -305,8 +308,10 @@ CREATE TABLE `status`
     `id`      int(11)     NOT NULL AUTO_INCREMENT,
     `name_en` varchar(20) NOT NULL,
     `name_ru` varchar(20) NOT NULL,
-    `deleted` int(11)     NOT NULL,
-    PRIMARY KEY (`id`)
+    `deleted` tinyint(1)  NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `name_UNIQUE` (`name_ru`),
+    UNIQUE KEY `name_en_UNIQUE` (`name_en`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4
@@ -336,12 +341,12 @@ DROP TABLE IF EXISTS `transaction`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `transaction`
 (
-    `id`        int(11) NOT NULL AUTO_INCREMENT,
-    `date`      date    NOT NULL,
-    `time`      time    NOT NULL,
-    `deleted`   int(11) NOT NULL,
-    `user_id`   int(11) NOT NULL,
-    `status_id` int(11) NOT NULL,
+    `id`        int(11)    NOT NULL AUTO_INCREMENT,
+    `date`      date       NOT NULL,
+    `time`      time       NOT NULL,
+    `deleted`   tinyint(1) NOT NULL DEFAULT '0',
+    `user_id`   int(11)    NOT NULL,
+    `status_id` int(11)    NOT NULL,
     PRIMARY KEY (`id`),
     KEY `fk_transaction_user1_idx` (`user_id`),
     KEY `fk_transaction_status1_idx` (`status_id`),
@@ -375,20 +380,21 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user`
 (
-    `id`       int(11)     NOT NULL AUTO_INCREMENT,
-    `name`     varchar(20) NOT NULL,
-    `surname`  varchar(20) NOT NULL,
-    `login`    varchar(20) NOT NULL,
-    `password` varchar(20) NOT NULL,
-    `email`    varchar(20) NOT NULL,
-    `phone`    varchar(20) NOT NULL,
-    `gender`   varchar(8)  NOT NULL,
-    `country`  varchar(30) NOT NULL,
-    `cash`     double      NOT NULL,
-    `deleted`  int(11)     NOT NULL,
-    `role_id`  int(11)     NOT NULL,
+    `id`       int(11)        NOT NULL AUTO_INCREMENT,
+    `name`     varchar(20)    NOT NULL,
+    `surname`  varchar(20)    NOT NULL,
+    `login`    varchar(20)    NOT NULL,
+    `password` varchar(20)    NOT NULL,
+    `email`    varchar(20)    NOT NULL,
+    `phone`    varchar(20)    NOT NULL,
+    `gender`   varchar(8)     NOT NULL,
+    `country`  varchar(30)    NOT NULL,
+    `cash`     decimal(12, 0) NOT NULL DEFAULT '0',
+    `deleted`  tinyint(1)     NOT NULL DEFAULT '0',
+    `role_id`  int(11)        NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
     UNIQUE KEY `login_UNIQUE` (`login`),
+    UNIQUE KEY `email_UNIQUE` (`email`),
     KEY `fk_user_role_idx` (`role_id`),
     CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE = InnoDB
@@ -421,4 +427,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 19:48:55
+-- Dump completed on 2020-08-17  2:34:56

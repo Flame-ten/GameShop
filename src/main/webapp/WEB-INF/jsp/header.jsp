@@ -34,7 +34,6 @@
 <%--@elvariable id="role" type="epam.andrew.gameShop.entity.Role"--%>
 <%--@elvariable id="game" type="epam.andrew.gameShop.entity.Game"--%>
 <%--@elvariable id="locale" type="java.util.Locale"--%>
-<%--@elvariable id="items" type="java.util.List"--%>
 <%--@elvariable id="loggedUser" type="epam.andrew.gameShop.entity.User"--%>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -63,7 +62,7 @@
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="<c:url value="/do/register"/>">${register}</a></li>
-                        <c:if test="${loggedUser.role.name.equals('USER') || loggedUser.role.name.equals('ADMIN')}">
+                        <c:if test="${loggedUser.role.name.equals('user') || loggedUser.role.name.equals('admin')}">
                             <li><a href="<c:url value="/do/userProfile?id=${user.id}"/>">${profile}</a></li>
                             <li><a href="<c:url value="/do/changePassword?id=${user.id}"/>">${password}</a></li>
                             <li><a href="<c:url value="/do/logout"/>">${logout}</a></li>
@@ -71,7 +70,7 @@
                     </ul>
                 </li>
                 <li><a href="<c:url value="/do/cart"/>">${cart}</a></li>
-                <c:if test="${loggedUser.role.name.equals('ADMIN')}">
+                <c:if test="${loggedUser.role.name.equals('admin')}">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">${admin}<b
                                 class="caret"></b></a>
@@ -93,7 +92,7 @@
                     </ul>
                 </li>
             </ul>
-            <c:if test="${!(loggedUser.role.name == 'USER'  || loggedUser.role.name == 'ADMIN')}">
+            <c:if test="${!(loggedUser.role.name == 'user'  || loggedUser.role.name == 'admin')}">
                 <div id="navbar" class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right" action="<c:url value="/do/login"/>" method="post" c>
                         <div class="form-group">
