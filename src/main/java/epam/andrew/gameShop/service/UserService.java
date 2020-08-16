@@ -31,8 +31,8 @@ public class UserService {
     private static final String CASH_UPDATED_SUCCESSFULLY = "Cash updated successfully";
     private static final String CANNOT_UPDATE_CASH = "Couldn't update cash";
     private static final String CANNOT_GET_USER_TRANSACTIONS = "Cannot get user transactions";
-    private static final String USER_ID = "user_id";
-    private static final String TRANSACTION_ID = "transac   tion_id";
+    private static final String USER_ID = "userId";
+    private static final String TRANSACTION_ID = "transactionId";
 
     public User registerUser(User user) throws ServiceException {
         User registeredUser;
@@ -66,7 +66,9 @@ public class UserService {
                 if (users.isEmpty() && users.get(0).isDeleted()) {
                     return getUserById(users.get(0).getId());
                 }
+                daoFactory.commitTransaction();
             } catch (DaoException e) {
+                daoFactory.rollbackTransaction();
                 LOG.error(CANNOT_GET_USER, e);
                 throw new ServiceException(CANNOT_GET_USER, e);
             }

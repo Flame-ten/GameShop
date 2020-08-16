@@ -6,7 +6,7 @@ import static epam.andrew.gameShop.util.Constant.*;
 
 public class TransactionStatus {
     private int id;
-    private String info;
+    private String name;
     private boolean deleted;
 
     public TransactionStatus() {
@@ -15,7 +15,7 @@ public class TransactionStatus {
 
     public TransactionStatus(int id, String info) {
         this.id = id;
-        this.info = info;
+        this.name = info;
     }
 
     private void setStatus(Integer id) {
@@ -33,14 +33,14 @@ public class TransactionStatus {
             default:
                 statusName = Status.IN_PROGRESS;
         }
-        info = statusName.toString();
+        name = statusName.toString();
     }
 
     @Override
     public String toString() {
         return "Status{" +
                 "id=" + id +
-                ", info='" + info + '\'' +
+                ", info='" + name + '\'' +
                 '}';
     }
 
@@ -52,12 +52,12 @@ public class TransactionStatus {
         this.id = id;
     }
 
-    public String getInfo() {
-        return info;
+    public String getName() {
+        return name;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isDeleted() {

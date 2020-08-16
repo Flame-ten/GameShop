@@ -6,9 +6,6 @@ import epam.andrew.gameShop.dao.BaseDao;
 import epam.andrew.gameShop.dao.Dao;
 import epam.andrew.gameShop.dao.DaoException;
 import epam.andrew.gameShop.entity.Transaction;
-import epam.andrew.gameShop.entity.User;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,10 +20,10 @@ public class TransactionDao extends Dao implements BaseDao<Transaction> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM transaction WHERE id = ?";
-    private static final String UPDATE_TRANSACTION = "UPDATE transaction SET price = ? , date = ?, " +
+    private static final String UPDATE_TRANSACTION = "UPDATE transaction SET  date = ?, " +
             " time = ? WHERE id = ?";
     private static final String DELETE_TRANSACTION = "DELETE FROM transaction WHERE id = ?";
-    private static final String INSERT_TRANSACTION = "INSERT INTO transaction VALUES (id,?,?,?,?,?,?)";
+    private static final String INSERT_TRANSACTION = "INSERT INTO transaction VALUES (id,?,?,?,?,?)";
     private static final String ALL_TRANSACTIONS = "SELECT * FROM transaction WHERE deleted=0 LIMIT ? OFFSET ?";
     private static final String DELETED = "SELECT count(*) FROM transaction WHERE deleted = 0";
     private static final String SELECT_ALL_BY_ID = "SELECT * FROM transaction ORDER BY id";
@@ -136,9 +133,8 @@ public class TransactionDao extends Dao implements BaseDao<Transaction> {
         Transaction transaction = new Transaction();
         try {
             transaction.setId(resultSet.getInt(INDEX_1));
-            transaction.setPrice(Money.of(CurrencyUnit.of(User.CURRENCY), resultSet.getBigDecimal(INDEX_2)));
-            transaction.setDate(resultSet.getDate(INDEX_3));
-            transaction.setTime(resultSet.getTime(INDEX_4));
+            transaction.setDate(resultSet.getDate(INDEX_2));
+            transaction.setTime(resultSet.getTime(INDEX_3));
         } catch (SQLException e) {
             LOG.error(CANNOT_CREATE_FROM_RESULT, e);
             throw new DaoException(CANNOT_CREATE_FROM_RESULT, e);
@@ -154,9 +150,8 @@ public class TransactionDao extends Dao implements BaseDao<Transaction> {
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(INSERT_TRANSACTION,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
-            statement.setBigDecimal(INDEX_1, transaction.getPrice().getAmount());
-            statement.setDate(INDEX_2, transaction.getDate());
-            statement.setTime(INDEX_3, transaction.getTime());
+            statement.setDate(INDEX_1, transaction.getDate());
+            statement.setTime(INDEX_2, transaction.getTime());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             while (resultSet.next()) {
@@ -177,9 +172,8 @@ public class TransactionDao extends Dao implements BaseDao<Transaction> {
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_TRANSACTION)) {
-            statement.setBigDecimal(INDEX_1, transaction.getPrice().getAmount());
-            statement.setDate(INDEX_2, transaction.getDate());
-            statement.setTime(INDEX_3, transaction.getTime());
+            statement.setDate(INDEX_1, transaction.getDate());
+            statement.setTime(INDEX_2, transaction.getTime());
             statement.execute();
         } catch (SQLException e) {
             LOG.error(CANNOT_UPDATE_TRANSACTION, e);

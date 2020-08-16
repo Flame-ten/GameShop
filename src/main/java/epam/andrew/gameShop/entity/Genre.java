@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class Genre {
     private Integer id;
-    private String info;
+    private String name;
     private boolean deleted;
 
     public Genre(int id, String info) {
         this.id = id;
-        this.info = info;
+        this.name = info;
     }
 
     public Genre() {
@@ -22,12 +22,12 @@ public class Genre {
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre = (Genre) o;
         return id.equals(genre.id) &&
-                Objects.equals(info, genre.info);
+                Objects.equals(name, genre.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, info);
+        return Objects.hash(id, name);
     }
 
 
@@ -35,7 +35,7 @@ public class Genre {
     public String toString() {
         return "Genre{" +
                 "id=" + id +
-                ", info='" + info + '\'' +
+                ", info='" + name + '\'' +
                 '}';
     }
 
@@ -47,12 +47,12 @@ public class Genre {
         this.id = id;
     }
 
-    public String getInfo() {
-        return info;
+    public String getName() {
+        return name;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isDeleted() {

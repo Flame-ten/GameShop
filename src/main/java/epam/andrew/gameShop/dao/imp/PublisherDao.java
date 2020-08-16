@@ -22,7 +22,7 @@ public class PublisherDao extends Dao implements BaseDao<Publisher> {
     private static final String UPDATE_PUBLISHER = "UPDATE publisher SET name = ?, address = ?, phone = ?, " +
             "email = ?, country = ?, deleted = ? WHERE id = ?";
     private static final String DELETE_PUBLISHER = "DELETE FROM publisher WHERE id = ?";
-    private static final String INSERT_PUBLISHER = "INSERT INTO publisher VALUES (id,?,?,?,?,?,?,?)";
+    private static final String INSERT_PUBLISHER = "INSERT INTO publisher VALUES (id,?,?,?,?,?,?)";
     private static final String ALL_PUBLISHERS = "SELECT * FROM publisher WHERE deleted=0 LIMIT ? OFFSET ?";
     private static final String DELETED = "SELECT count(*) FROM publisher WHERE deleted = 0";
     private static final String SELECT_ALL_BY_ID = "SELECT * FROM publisher ORDER BY id";

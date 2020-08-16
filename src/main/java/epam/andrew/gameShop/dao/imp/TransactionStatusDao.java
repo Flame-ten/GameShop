@@ -22,7 +22,7 @@ import static epam.andrew.gameShop.util.Constant.INDEX_2;
 public class TransactionStatusDao extends Dao implements BaseDao<TransactionStatus> {
     private static final Logger LOG = LoggerFactory.getLogger(TransactionStatusDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM status WHERE id = ?";
-    private static final String UPDATE_STATUS = "UPDATE status SET info = ? WHERE id = ?";
+    private static final String UPDATE_STATUS = "UPDATE status SET name_en = ?, name_ru = ? WHERE id = ?";
     private static final String DELETE_STATUS = "DELETE FROM status WHERE id = ?";
     private static final String INSERT_STATUS = "INSERT INTO status VALUES (id,?,?,?)";
     private static final String ALL_STATUSES = "SELECT * FROM status WHERE deleted=0 LIMIT ? OFFSET ?";
@@ -100,7 +100,7 @@ public class TransactionStatusDao extends Dao implements BaseDao<TransactionStat
         TransactionStatus transactionStatus = new TransactionStatus();
         try {
             transactionStatus.setId(resultSet.getInt(INDEX_1));
-            transactionStatus.setInfo(resultSet.getString(INDEX_2));
+            transactionStatus.setName(resultSet.getString(INDEX_2));
         } catch (SQLException e) {
             LOG.error(CANNOT_CREATE_FROM_RESULT, e);
             throw new DaoException(CANNOT_CREATE_FROM_RESULT, e);
@@ -116,7 +116,7 @@ public class TransactionStatusDao extends Dao implements BaseDao<TransactionStat
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(INSERT_STATUS,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
-            statement.setString(INDEX_1, transactionStatus.getInfo());
+            statement.setString(INDEX_1, transactionStatus.getName());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             while (resultSet.next()) {
@@ -137,7 +137,7 @@ public class TransactionStatusDao extends Dao implements BaseDao<TransactionStat
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_STATUS)) {
-            statement.setString(INDEX_1, transactionStatus.getInfo());
+            statement.setString(INDEX_1, transactionStatus.getName());
             statement.execute();
         } catch (SQLException e) {
             LOG.error(CANNOT_UPDATE_STATUS, e);

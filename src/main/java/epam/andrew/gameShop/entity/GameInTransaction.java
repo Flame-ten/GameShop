@@ -1,22 +1,20 @@
 package epam.andrew.gameShop.entity;
 
+import org.joda.money.Money;
+
 public class GameInTransaction {
     private Integer id;
-    private String userName;
-    private double payment;
     private int amount;
     private Game game;
     private Transaction transaction;
+    private boolean deleted;
 
     public GameInTransaction() {
 
     }
 
-    public GameInTransaction(int id, String userName, double payment,
-                             int amount) {
+    public GameInTransaction(int id, int amount) {
         this.id = id;
-        this.userName = userName;
-        this.payment = payment;
         this.amount = amount;
     }
 
@@ -24,12 +22,14 @@ public class GameInTransaction {
     public String toString() {
         return "GameInTransaction{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", payment=" + payment +
                 ", amount=" + amount +
                 ", game=" + game +
                 ", transaction=" + transaction +
                 '}';
+    }
+
+    public Money getPrice() {
+        return game.getPrice().multipliedBy(amount);
     }
 
     public Integer getId() {
@@ -38,22 +38,6 @@ public class GameInTransaction {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public double getPayment() {
-        return payment;
-    }
-
-    public void setPayment(double payment) {
-        this.payment = payment;
     }
 
     public int getAmount() {
@@ -78,6 +62,15 @@ public class GameInTransaction {
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
+    }
+
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
 }

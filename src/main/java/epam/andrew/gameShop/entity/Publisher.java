@@ -1,8 +1,5 @@
 package epam.andrew.gameShop.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Publisher {
     private Integer id;
     private String name;
@@ -11,7 +8,6 @@ public class Publisher {
     private String email;
     private String country;
     private Boolean deleted;
-    private List<Image> images = new ArrayList<>();
 
     public Publisher(Integer id, String name, String address, String phone, String email, String country) {
         this.id = id;
@@ -94,11 +90,4 @@ public class Publisher {
         this.deleted = deleted;
     }
 
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
 }

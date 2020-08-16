@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class PublisherService {
     private static final Logger LOG = LoggerFactory.getLogger(PublisherService.class);
@@ -26,7 +25,6 @@ public class PublisherService {
     private static final String CANNOT_FIND_PUBLISHER_BY_ID = "Cannot find publisher by id";
     private static final String CANNOT_GET_PUBLISHER_BY_ID = "Cannot get publisher by id";
     private static final String CANNOT_ADD_PUBLISHER = "Cannot add publisher";
-    private static final String CANNOT_GET_FILLED_PUBLISHER = "Cannot get filled publisher";
 
     public Publisher addPublisher(Publisher publisher, Image image) throws ServiceException {
         try (DaoFactory daoFactory = new DaoFactory()) {
@@ -212,43 +210,5 @@ public class PublisherService {
             throw new ServiceException(CANNOT_GET_PREVIEW_IMAGE, e);
         }
         return images.get(0);
-    }
-
-    public Publisher getFilledPublisher(String id) throws ServiceException {
-        Publisher publisher;
-        try (DaoFactory daoFactory = new DaoFactory()) {
-            try {
-                daoFactory.startTransaction();
-                publisher = fillPublisher(id, daoFactory);
-                daoFactory.commitTransaction();
-            } catch (DaoException e) {
-                daoFactory.rollbackTransaction();
-                LOG.error(CANNOT_GET_FILLED_PUBLISHER, e);
-                throw new ServiceException(CANNOT_GET_FILLED_PUBLISHER, e);
-            }
-        } catch (DaoException | ConnectionPoolException e) {
-            LOG.error(CANNOT_GET_FILLED_PUBLISHER, e);
-            throw new ServiceException(CANNOT_GET_FILLED_PUBLISHER, e);
-        }
-        return publisher;
-    }
-
-    private Publisher fillPublisher(String id, DaoFactory daoFactory) throws ServiceException, DaoException, ConnectionPoolException {
-        Publisher publisher;
-        try {
-            daoFactory.startTransaction();
-            PublisherDao publisherDao = daoFactory.getDao(PublisherDao.class);
-            ImageDao imageDao = daoFactory.getDao(ImageDao.class);
-            publisher = publisherDao.findById(Integer.parseInt(id));
-            Map<String, String> gameParam = Collections.singletonMap(PUBLISHER_ID, id);
-            List<Image> images = imageDao.getByParams(gameParam);
-            publisher.setImages(images);
-            daoFactory.commitTransaction();
-        } catch (DaoException e) {
-            LOG.error(CANNOT_GET_FILLED_PUBLISHER, e);
-            daoFactory.rollbackTransaction();
-            throw new ServiceException(CANNOT_GET_FILLED_PUBLISHER, e);
-        }
-        return publisher;
     }
 }

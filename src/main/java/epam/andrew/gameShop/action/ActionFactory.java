@@ -3,7 +3,10 @@ package epam.andrew.gameShop.action;
 import epam.andrew.gameShop.action.cart.*;
 import epam.andrew.gameShop.action.game.*;
 import epam.andrew.gameShop.action.language.SetLanguageAction;
-import epam.andrew.gameShop.action.publisher.*;
+import epam.andrew.gameShop.action.publisher.AddPublisherAction;
+import epam.andrew.gameShop.action.publisher.DeletePublisherAction;
+import epam.andrew.gameShop.action.publisher.ShowPublisherAction;
+import epam.andrew.gameShop.action.publisher.ShowPublisherManagePageAction;
 import epam.andrew.gameShop.action.transaction.*;
 import epam.andrew.gameShop.action.user.*;
 import epam.andrew.gameShop.util.Constant;
@@ -49,11 +52,9 @@ public final class ActionFactory {
     public static final String GAME_ACTION_SHOW_ADD_GAME_PAGE = "GET/addGame";
     public static final String GAME_ACTION_SHOW_EDIT_GAME_PAGE = "GET/editGame";
 
-    public static final String PUBLISHER_ACTION_EDIT = "POST/editPublisher";
     public static final String PUBLISHER_ACTION_DELETE = "GET/deletePublisher";
     public static final String PUBLISHER_ACTION_ADD = "POST/addPublisher";
     public static final String PUBLISHER_ACTION_SHOW = "GET/publisher";
-    public static final String PUBLISHER_ACTION_SHOW_EDIT_PAGE = "GET/editPublisher";
     public static final String PUBLISHER_ACTION_SHOW_MANAGE_PAGE = "GET/publishers";
 
     public static final String LANGUAGE_ACTION_SET = "GET/locale";
@@ -101,9 +102,7 @@ public final class ActionFactory {
 
         actions.put(PUBLISHER_ACTION_ADD, new AddPublisherAction());
         actions.put(PUBLISHER_ACTION_DELETE, new DeletePublisherAction());
-        actions.put(PUBLISHER_ACTION_EDIT, new EditPublisherAction());
         actions.put(PUBLISHER_ACTION_SHOW, new ShowPublisherAction());
-        actions.put(PUBLISHER_ACTION_SHOW_EDIT_PAGE, new ShowEditPublisherPageAction());
         actions.put(PUBLISHER_ACTION_SHOW_MANAGE_PAGE, new ShowPublisherManagePageAction());
 
         actions.put(LANGUAGE_ACTION_SET, new SetLanguageAction());

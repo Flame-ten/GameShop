@@ -22,7 +22,7 @@ import static epam.andrew.gameShop.util.Constant.INDEX_2;
 public class RoleDao extends Dao implements BaseDao<Role> {
     private static final Logger LOG = LoggerFactory.getLogger(RoleDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM role WHERE id = ?";
-    private static final String UPDATE_ROLE = "UPDATE role SET name = ? WHERE id = ?";
+    private static final String UPDATE_ROLE = "UPDATE role SET name_en = ?, name_ru=? WHERE id = ?";
     private static final String DELETE_ROLE = "DELETE FROM role WHERE id = ?";
     private static final String INSERT_ROLE = "INSERT INTO role VALUES (id,?,?,?)";
     private static final String ALL_ROLE = "SELECT * FROM role WHERE deleted=0 LIMIT ? OFFSET ?";

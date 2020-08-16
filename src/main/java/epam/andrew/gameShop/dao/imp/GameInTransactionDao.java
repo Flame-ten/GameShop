@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static epam.andrew.gameShop.util.Constant.*;
+import static epam.andrew.gameShop.util.Constant.INDEX_1;
+import static epam.andrew.gameShop.util.Constant.INDEX_2;
 
 
 public class GameInTransactionDao extends Dao implements BaseDao<GameInTransaction> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameInTransactionDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM gameintransaction WHERE id = ?";
-    private static final String UPDATE_GAME_IN_TRANS = "UPDATE gameintransaction SET user_name = ?, " +
-            "amount = ?, payment = ?  WHERE id = ?";
+    private static final String UPDATE_GAME_IN_TRANS = "UPDATE gameintransaction SET amount = ?  WHERE id = ?";
     private static final String DELETE_GAME_IN_TRANS = "DELETE FROM gameintransaction WHERE id = ?";
-    private static final String INSERT_GAME_IN_TRANS = "INSERT INTO gameintransaction VALUES (id,?,?,?,?,?,?)";
+    private static final String INSERT_GAME_IN_TRANS = "INSERT INTO gameintransaction VALUES (id,?,?,?,?)";
     private static final String ALL_GAMES_IN_TRANS = "SELECT * FROM gameintransaction WHERE deleted=0 LIMIT ? OFFSET ?";
     private static final String SELECT_FROM_WHERE = "SELECT * FROM gameintransaction WHERE ";
     private static final String AND = "' AND ";
@@ -83,9 +83,7 @@ public class GameInTransactionDao extends Dao implements BaseDao<GameInTransacti
         GameInTransaction gameInTransaction = new GameInTransaction();
         try {
             gameInTransaction.setId(resultSet.getInt(INDEX_1));
-            gameInTransaction.setUserName(resultSet.getString(INDEX_2));
-            gameInTransaction.setAmount(resultSet.getInt(INDEX_3));
-            gameInTransaction.setPayment(resultSet.getDouble(INDEX_4));
+            gameInTransaction.setAmount(resultSet.getInt(INDEX_2));
         } catch (SQLException e) {
             LOG.error(CANNOT_CREATE_FROM_RESULT, e);
             throw new DaoException(CANNOT_CREATE_FROM_RESULT, e);
@@ -132,9 +130,7 @@ public class GameInTransactionDao extends Dao implements BaseDao<GameInTransacti
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(INSERT_GAME_IN_TRANS,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
-            statement.setString(INDEX_1, gameInTransaction.getUserName());
-            statement.setInt(INDEX_2, gameInTransaction.getAmount());
-            statement.setDouble(INDEX_3, gameInTransaction.getPayment());
+            statement.setInt(INDEX_1, gameInTransaction.getAmount());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             while (resultSet.next()) {
@@ -155,9 +151,7 @@ public class GameInTransactionDao extends Dao implements BaseDao<GameInTransacti
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_GAME_IN_TRANS)) {
-            statement.setString(INDEX_1, gameInTransaction.getUserName());
-            statement.setInt(INDEX_2, gameInTransaction.getAmount());
-            statement.setDouble(INDEX_3, gameInTransaction.getPayment());
+            statement.setInt(INDEX_1, gameInTransaction.getAmount());
             statement.execute();
         } catch (SQLException e) {
             LOG.error(CANNOT_UPDATE_GAME_IN_TRANS, e);

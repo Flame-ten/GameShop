@@ -95,15 +95,15 @@
             </ul>
             <c:if test="${!(loggedUser.role.name == 'USER'  || loggedUser.role.name == 'ADMIN')}">
                 <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right" action="<c:url value="/do/login"/>" method="post">
+                    <form class="navbar-form navbar-right" action="<c:url value="/do/login"/>" method="post" c>
                         <div class="form-group">
                             <label>
-                                <input type="text" placeholder="${email}" class="form-control">
+                                <input type="text" name="email" placeholder="${email}" class="form-control">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="password" placeholder="${password}" class="form-control">
+                                <input type="password" name="password" placeholder="${password}" class="form-control">
                             </label>
                         </div>
                         <button type="submit" class="btn btn-success">${login}</button>

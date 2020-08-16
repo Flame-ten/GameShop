@@ -22,9 +22,9 @@ import static epam.andrew.gameShop.util.Constant.*;
 public class GameDao extends Dao implements BaseDao<Game> {
     private static final Logger LOG = LoggerFactory.getLogger(GameDao.class);
     private static final String FIND_BY_ID = "SELECT * FROM game WHERE id = ?";
-    private static final String UPDATE_GAME = "UPDATE game SET name = ?, amount = ? , price = ?, description = ?, deleted = ? WHERE id = ?";
+    private static final String UPDATE_GAME = "UPDATE game SET name = ?, amount = ? , price = ?, description_en = ?, description_ru = ?, deleted = ? WHERE id = ?";
     private static final String DELETE_GAME = "DELETE FROM game WHERE id = ?";
-    private static final String INSERT_GAME = "INSERT INTO game VALUES (id,?,?,?,?,?,?,?,0)";
+    private static final String INSERT_GAME = "INSERT INTO game VALUES (id,?,?,?,?,?,?,?,?,0)";
     private static final String ALL_GAMES = "SELECT * FROM game WHERE deleted=0 LIMIT ? OFFSET ?";
     private static final String SELECT_FROM_GAME = "SELECT count(*) FROM game WHERE deleted = 0";
     private static final String SELECT_ALL_BY_ID = "SELECT * FROM game ORDER BY id";

@@ -1,5 +1,6 @@
 package epam.andrew.gameShop.entity;
 
+import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 import java.sql.Date;
@@ -9,7 +10,6 @@ import java.util.List;
 
 public class Transaction {
     private Integer id;
-    private Money price;
     private Date date;
     private Time time;
     private Boolean deleted;
@@ -38,6 +38,14 @@ public class Transaction {
                 ", date=" + date +
                 ", time=" + time +
                 '}';
+    }
+
+    public Money getPrice() {
+        Money totalPrice = Money.zero(CurrencyUnit.of("KZT"));
+        for (GameInTransaction gameInTransaction : gameInTransactionList) {
+            totalPrice = totalPrice.plus(gameInTransaction.getPrice());
+        }
+        return totalPrice;
     }
 
     public Integer getId() {
@@ -88,14 +96,6 @@ public class Transaction {
         this.gameInTransactionList = gameInTransactionList;
     }
 
-    public Money getPrice() {
-        return price;
-    }
-
-    public void setPrice(Money price) {
-        this.price = price;
-    }
-
     public Boolean getDeleted() {
         return deleted;
     }
@@ -103,4 +103,5 @@ public class Transaction {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+
 }

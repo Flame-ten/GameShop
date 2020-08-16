@@ -23,7 +23,7 @@ public class GenreDao extends Dao implements BaseDao<Genre> {
 
     private static final Logger LOG = LoggerFactory.getLogger(Genre.class);
     private static final String FIND_BY_ID = "SELECT * FROM genre WHERE id = ?";
-    private static final String UPDATE_GENRE = "UPDATE genre SET info = ? WHERE id = ?";
+    private static final String UPDATE_GENRE = "UPDATE genre SET name_en = ?, name_ru = ? WHERE id = ?";
     private static final String DELETE_GENRE = "DELETE FROM genre WHERE id = ?";
     private static final String CREATE_GENRE = "INSERT INTO genre VALUES (id,?,?,?)";
     private static final String ALL_GENRES = "SELECT * FROM genre WHERE deleted=0 LIMIT ? OFFSET ?";
@@ -100,7 +100,7 @@ public class GenreDao extends Dao implements BaseDao<Genre> {
         Genre genre = new Genre();
         try {
             genre.setId(resultSet.getInt(INDEX_1));
-            genre.setInfo(resultSet.getString(INDEX_2));
+            genre.setName(resultSet.getString(INDEX_2));
         } catch (SQLException e) {
             LOG.error(CANNOT_CREATE_FROM_RESULT, e);
             throw new DaoException(CANNOT_CREATE_FROM_RESULT, e);
@@ -116,7 +116,7 @@ public class GenreDao extends Dao implements BaseDao<Genre> {
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(CREATE_GENRE,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
-            statement.setString(INDEX_1, genre.getInfo());
+            statement.setString(INDEX_1, genre.getName());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             while (resultSet.next()) {
@@ -137,7 +137,7 @@ public class GenreDao extends Dao implements BaseDao<Genre> {
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_GENRE)) {
-            statement.setString(INDEX_1, genre.getInfo());
+            statement.setString(INDEX_1, genre.getName());
             statement.execute();
         } catch (SQLException e) {
             LOG.error(CANNOT_UPDATE_GENRE, e);
