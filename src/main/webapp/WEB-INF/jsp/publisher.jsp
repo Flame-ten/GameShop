@@ -10,6 +10,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="publisher" var="publisher_logo"/>
+    <fmt:message key="name" var="publisherName"/>
+    <fmt:message key="common.email" var="publisherEmail"/>
+    <fmt:message key="phone" var="publisherPhone"/>
+    <fmt:message key="common.address" var="publisherAddress"/>
+    <fmt:message key="country" var="publisher_country"/>
+</fmt:bundle>
+
 <%--@elvariable id="publisher" type="epam.andrew.gameShop.entity.Publisher"--%>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
@@ -21,11 +30,11 @@
         background-size: cover;
     }
 </style>
-<title><fmt:message key="publisher"/></title>
+<title>${publisher_logo}</title>
 <jsp:include page="header.jsp"/>
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title"><fmt:message key="publisher"/></h3>
+        <h3 class="panel-title">${publisher_logo}</h3>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -33,27 +42,27 @@
                 <table class="table table-user-information">
                     <tbody>
                     <tr>
-                        <td><fmt:message key="name"/></td>
+                        <td>${publisherName}</td>
                         <td><p>${publisher.name}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="common.email"/></td>
+                        <td>${publisherEmail}</td>
                         <td><p>${publisher.email}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="phone"/></td>
+                        <td>${publisherPhone}</td>
                         <td><p>${publisher.phone}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="common.address"/></td>
+                        <td>${publisherAddress}</td>
                         <td><p>${publisher.address}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="country"/></td>
+                        <td>${publisher_country}</td>
                         <td><p>${publisher.country}</p></td>
                     </tr>
 

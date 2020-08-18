@@ -21,7 +21,7 @@ public class RecountCartAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(RecountCartAction.class);
     private static final String INVALID_GAME_AMOUNT_FORMAT = "Invalid game amount format - {}";
     private static final String AMOUNT_SET_TO = "{} amount set to {}";
-    private static final String GAME_AMOUNT_ERROR = "game_amount_error";
+    private static final String GAME_AMOUNT_ERROR = "gameAmountError";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ActionException {

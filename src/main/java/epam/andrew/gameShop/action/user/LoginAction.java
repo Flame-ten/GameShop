@@ -35,7 +35,7 @@ public class LoginAction implements Action {
                 req.getSession().setAttribute(Constant.LOGGED_USER, user);
                 req.getSession().setAttribute(Constant.PASSWORD, password);
                 LOG.info(LOGGED, user);
-                return new ActionResult(Constant.PROFILE, true);
+                return new ActionResult(Constant.HOME, true);
             } else {
                 LOG.info(INPUT_ERROR, email, password);
                 req.setAttribute(LOGIN_ERROR, TRUE);

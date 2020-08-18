@@ -4,14 +4,14 @@ import epam.andrew.gameShop.enums.RoleName;
 
 import static epam.andrew.gameShop.util.Constant.*;
 
-public class Role {
+public class Role extends LocaleName {
     private Integer id;
     private String name;
     private boolean deleted;
 
-    public Role(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    public Role(Integer id) {
+        setId(id);
+        setRoleName(id);
     }
 
     public Role() {

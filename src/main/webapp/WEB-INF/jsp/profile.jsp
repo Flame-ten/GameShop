@@ -10,6 +10,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="editProfile.button" var="editProfile"/>
+    <fmt:message key="common.profile" var="profile"/>
+    <fmt:message key="name" var="userName"/>
+    <fmt:message key="surname" var="userSur"/>
+    <fmt:message key="login" var="userLogin"/>
+    <fmt:message key="common.email" var="userEmail"/>
+    <fmt:message key="phone" var="userPhone"/>
+    <fmt:message key="gender" var="userGender"/>
+    <fmt:message key="country" var="user_country"/>
+    <fmt:message key="cash" var="user_cash"/>
+    <fmt:message key="transactions.button" var="transactions"/>
+    <fmt:message key="password.button" var="password"/>
+</fmt:bundle>
+
 <%--@elvariable id="loggedUser" type="epam.andrew.gameShop.entity.User"--%>
 <%--@elvariable id="user" type="epam.andrew.gameShop.entity.User"--%>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -22,11 +37,11 @@
         background-size: cover;
     }
 </style>
-<title>Profile</title>
+<title>${profile}</title>
 <jsp:include page="header.jsp"/>
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title"><fmt:message key="common.profile"/></h3>
+        <h3 class="panel-title">${profile}</h3>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -34,53 +49,51 @@
                 <table class="table table-user-information">
                     <tbody>
                     <tr>
-                        <td><fmt:message key="name"/></td>
+                        <td>${userName}</td>
                         <td><p>${loggedUser.name}</p></td>
                     </tr>
                     <tr>
-                        <td><fmt:message key="surname"/></td>
+                        <td>${userSur}</td>
                         <td><p>${loggedUser.surname}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="login"/></td>
+                        <td>${userLogin}</td>
                         <td><p>${loggedUser.login}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="common.email"/></td>
+                        <td>${userEmail}</td>
                         <td><p>${loggedUser.email}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="phone"/></td>
+                        <td>${userPhone}</td>
                         <td><p>${loggedUser.phone}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="gender"/></td>
+                        <td>${userGender}</td>
                         <td><p>${loggedUser.gender}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="country"/></td>
+                        <td>${user_country}</td>
                         <td><p>${loggedUser.country}</p></td>
                     </tr>
 
                     <tr>
-                        <td><fmt:message key="cash"/></td>
+                        <td>${user_cash}</td>
                         <td><p>${loggedUser.cash}</p></td>
                     </tr>
 
                     </tbody>
                 </table>
 
-                <a href="<c:url value="/do/editProfile?userId=${user.id}"/>" class="btn btn-primary"><fmt:message
-                        key="editProfile.button"/></a>
-                <a href="<c:url value="/do/password?userId=${user.id}"/>" class="btn btn-primary"><fmt:message
-                        key="password.button"/></a>
-                <a href="<c:url value="/do/userTransaction?userId=${user.id}"/>" class="btn btn-primary"><fmt:message
-                        key="transactions.button"/></a>
+                <a href="<c:url value="/do/editProfile?userId=${user.id}"/>" class="btn btn-primary"><${editProfile}</a>
+                <a href="<c:url value="/do/password?userId=${user.id}"/>" class="btn btn-primary">${password}</a>
+                <a href="<c:url value="/do/userTransaction?userId=${user.id}"/>"
+                   class="btn btn-primary">${transactions}</a>
             </div>
         </div>
     </div>

@@ -2,7 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
-<%@ taglib prefix="my" tagdir="/WEB-INF/jsp" %>
+
+<fmt:bundle basename="language">
+    <fmt:message key="transactionDetail.button" var="detail"/>
+    <fmt:message key="id" var="id"/>
+    <fmt:message key="user.button" var="user"/>
+    <fmt:message key="common.game" var="game"/>
+    <fmt:message key="actions" var="actions"/>
+    <fmt:message key="common.payment" var="payment"/>
+    <fmt:message key="amount" var="amount"/>
+    <fmt:message key="total" var="total"/>
+</fmt:bundle>
+
 <%--@elvariable id="game" type="epam.andrew.gameShop.entity.Game"--%>
 <%--@elvariable id="gameTransaction" type="epam.andrew.gameShop.entity.GameInTransaction"--%>
 <%--@elvariable id="transactions" type="java.util.List"--%>
@@ -13,13 +24,14 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<c:set var="localeCode" value="${pageContext.response.locale}"/>
+
 <style>
     body {
         background: url(https://images8.alphacoders.com/922/thumb-1920-922129.png) no-repeat fixed center;
         background-size: cover;
     }
 </style>
+<title>${detail}</title>
 <jsp:include page="header.jsp"/>
 <form class="form-signin">
     <div class="container">
@@ -31,7 +43,7 @@
                     <div class="panel panel-primary">
 
                         <div class="text-center">
-                            <h3 style="color:#2C3E50"><fmt:message key="transactionDetail.button"/></h3>
+                            <h3 style="color:#2C3E50">${detail}</h3>
                             <td>${user.name}</td>
                             <td>${user.login}</td>
                             <td>${user.role.getName(pageContext.response.locale)}</td>
@@ -44,11 +56,11 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th class="text-center" width="115px"><fmt:message key="id"/></th>
-                                        <th class="text-center" width="115px"><fmt:message key="user.button"/></th>
-                                        <th class="text-center" width="115px"><fmt:message key="common.game"/></th>
-                                        <th class="text-center" width="115px"><fmt:message key="amount"/></th>
-                                        <th class="text-center" width="115px"><fmt:message key="common.payment"/></th>
+                                        <th class="text-center" width="115px">${id}</th>
+                                        <th class="text-center" width="115px">${user}</th>
+                                        <th class="text-center" width="115px">${game}</th>
+                                        <th class="text-center" width="115px">${amount}</th>
+                                        <th class="text-center" width="115px">${payment}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -60,7 +72,7 @@
                                                      src="<c:url value="/img/${game.id}"/>">
                                             </td>
                                             <td class="text-center" width="150px">${gameTransaction.id}</td>
-                                            <td class="text-center" width="150px">${gameTransaction.userName}</td>
+                                            <td class="text-center" width="150px">${transaction.user}</td>
                                             <td class="text-center" width="150px">${gameTransaction.game.name}</td>
                                             <td class="text-center" width="150px">${gameTransaction.amount}</td>
                                             <fmt:formatNumber var="formattedGamePrice" type="currency"
@@ -76,8 +88,7 @@
                                     <fmt:formatNumber var="formattedCartPrice" type="currency" currencyCode="KZT"
                                                       maxFractionDigits="0"
                                                       value="${transaction.price.amount}"/>
-                                    <h4><label style="color:#E74C3C"><fmt:message
-                                            key="total"/></label>${formattedCartPrice}</h4></div>
+                                    <h4><label style="color:#E74C3C">${total}</label>${formattedCartPrice}</h4></div>
 
                             </div>
                         </div>
@@ -86,9 +97,9 @@
             </div>
         </div>
     </div>
-</form>
-<div class="row justify-content-center" style="margin-top: 30px">
-    <div class="col-12 p-0">
-        <my:pagination url="/do/gameManage" pagesCount="${pagesCount}"/>
+    <div class="row justify-content-center" style="margin-top: 30px">
+        <div class="col-12 p-0">
+            <:pagination url="/do/gameManage" pagesCount="${pagesCount}"/>
+        </div>
     </div>
-</div>
+</form>

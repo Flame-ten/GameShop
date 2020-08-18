@@ -10,6 +10,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="catalog.button" var="catalog"/>
+</fmt:bundle>
+
 <%--@elvariable id="genres" type="java.util.List"--%>
 <%--@elvariable id="games" type="java.util.List"--%>
 <%--@elvariable id="genre" type="src\main\java\epam\andrew\gameShop\entity\Genre"--%>
@@ -27,7 +31,7 @@
     }
 </style>
 <html>
-<title><fmt:message key="catalog.button"/></title>
+<title>${catalog}</title>
 <body>
 <jsp:include page="header.jsp"/>
 <div class="container">

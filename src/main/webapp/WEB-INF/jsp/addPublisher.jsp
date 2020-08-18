@@ -10,6 +10,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="addPublisher" var="addPublisher"/>
+    <fmt:message key="setName" var="setName"/>
+    <fmt:message key="common.files" var="files"/>
+    <fmt:message key="name" var="publisherName"/>
+    <fmt:message key="publisher" var="publi_sher"/>
+    <fmt:message key="error.emptyName" var="emptyName"/>
+    <fmt:message key="error.wrongName" var="wrongName"/>
+    <fmt:message key="common.email" var="publisherEmail"/>
+    <fmt:message key="setEmail" var="setEmail"/>
+    <fmt:message key="common.address" var="publisherAddress"/>
+    <fmt:message key="setAddress" var="setAddress"/>
+    <fmt:message key="country" var="publisherCountry"/>
+    <fmt:message key="setCountry" var="setCountry"/>
+</fmt:bundle>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -22,65 +37,64 @@
     }
 </style>
 
-<%@ include file="header.jsp" %>
+<jsp:include page="header.jsp"/>
 <html>
-<title><fmt:message key="addPublisher"/></title>
+<title>${addPublisher}</title>
 <body>
 <form class="form-horizontal" action="<c:url value="/do/addPublisher"/>" method="post" c>
 
     <fieldset>
 
-        <legend><fmt:message key="publisher"/></legend>
+        <legend>${publi_sher}</legend>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="addName"><fmt:message key="name"/></label>
+            <label class="col-md-4 control-label" for="addName">${publisherName}</label>
             <div class="col-md-4">
-                <input id="addName" name="name" type="text" placeholder="<fmt:message key="setName"/>"
+                <input id="addName" name="name" type="text" placeholder="${setName}"
                        class="form-control input-md"
                        required="" value="${name}">
-                <span class="help-block"><fmt:message key="setName"/></span>
+                <span class="help-block">${setName}</span>
                 <c:if test="${emptyName.equals('true')}">
-                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message key="error.emptyName"/></p>
+                    <p class="text-danger" style="font-size: 14px; margin:1px">${emptyName}</p>
                 </c:if>
                 <c:if test="${wrongName.equals('true')}">
-                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message key="error.wrongName"/></p>
+                    <p class="text-danger" style="font-size: 14px; margin:1px">${wrongName}</p>
                 </c:if>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="addEmail"><fmt:message key="common.email"/></label>
+            <label class="col-md-4 control-label" for="addEmail">${publisherEmail}</label>
             <div class="col-md-4">
-                <input id="addEmail" name="email" type="text" placeholder="<fmt:message key="setEmail"/>"
+                <input id="addEmail" name="email" type="text" placeholder="${setEmail}"
                        class="form-control input-md"
                        required="" value="${email}">
-                <span class="help-block"><fmt:message key="setEmail"/></span>
+                <span class="help-block">${setEmail}</span>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="addAddress"><fmt:message key="common.address"/></label>
+            <label class="col-md-4 control-label" for="addAddress">${publisherAddress}</label>
             <div class="col-md-4">
-                <input id="addAddress" name="Address" type="text" placeholder="<fmt:message key="setAddress"/>"
+                <input id="addAddress" name="Address" type="text" placeholder="${setAddress}"
                        class="form-control input-md" required="" value="${address}">
-                <span class="help-block">Set Address</span>
+                <span class="help-block">${setAddress}</span>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="addCountry"><fmt:message key="country"/></label>
+            <label class="col-md-4 control-label" for="addCountry">${publisherCountry}</label>
             <div class="col-md-4">
-                <input id="addCountry" name="Country" type="text" placeholder="<fmt:message key="setCountry"/>"
+                <input id="addCountry" name="Country" type="text" placeholder="${setCountry}"
                        class="form-control input-md" required="" value="${country}">
-                <span class="help-block">Set Country</span>
+                <span class="help-block">${setCountry}</span>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message
-                        key="addPublisher"/></button>
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary">${addPublisher}</button>
             </div>
         </div>
 

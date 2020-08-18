@@ -10,8 +10,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
-<%--@elvariable id="user" type="epam.andrew.gameShop.entity.User"--%>
+<fmt:bundle basename="language">
+    <fmt:message key="cash.button" var="set_cash"/>
+    <fmt:message key="cash" var="user_cash"/>
+    <fmt:message key="error.emptyBalance" var="empty_balance"/>
+</fmt:bundle>
 
+<%--@elvariable id="user" type="epam.andrew.gameShop.entity.User"--%>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -26,10 +31,10 @@
 
 <%@ include file="header.jsp" %>
 <html>
-<title>Set cash</title>
+<title>${set_cash}</title>
 <body>
 <fieldset>
-    <legend>Money</legend>
+    <legend>${set_cash}</legend>
 
     <div class="form-group">
         <label class="col-md-4 control-label">${user.login}</label>
@@ -45,8 +50,7 @@
                                    name="balance"
                                    value="${user.cash.amount.intValue()}">
                             <c:if test="${emptyBalance.equals('true')}">
-                                <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                        key="error.emptyBalance"/></p>
+                                <p class="text-danger" style="font-size: 14px; margin:1px">${empty_balance}</p>
                             </c:if>
                         </div>
                     </div>
@@ -55,8 +59,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton"></label>
                     <div class="col-md-4">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message
-                                key="cash.button"/></button>
+                        <button id="singlebutton" name="singlebutton" class="btn btn-primary">${set_cash}</button>
                     </div>
                 </div>
 
@@ -64,7 +67,7 @@
                     <div class="col-12 p-0">
                         <fmt:formatNumber var="formattedBalance" type="currency" currencyCode="KZT"
                                           maxFractionDigits="0" value="${user.cash.amount}"/>
-                        <p class="text-secondary" style="font-size: 17px; margin:1px"><fmt:message key="cash"/>
+                        <p class="text-secondary" style="font-size: 17px; margin:1px">${user_cash}
                             : ${formattedBalance}</p>
                     </div>
                 </div>

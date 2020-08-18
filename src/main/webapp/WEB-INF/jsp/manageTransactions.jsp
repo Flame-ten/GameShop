@@ -9,7 +9,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
-<%@ taglib prefix="my" tagdir="/WEB-INF/jsp" %>
+
+<fmt:bundle basename="language">
+    <fmt:message key="transactions.button" var="transaction_s"/>
+    <fmt:message key="user.button" var="us_er"/>
+    <fmt:message key="id" var="transction_id"/>
+    <fmt:message key="name" var="gameName"/>
+    <fmt:message key="actions" var="actions"/>
+    <fmt:message key="date" var="da_te"/>
+    <fmt:message key="time" var="ti_me"/>
+    <fmt:message key="common.status" var="sta_tus"/>
+    <fmt:message key="price" var="game_price"/>
+</fmt:bundle>
+
 <%--@elvariable id="transaction" type="epam.andrew.gameShop.entity.Transaction"--%>
 <%--@elvariable id="game" type="epam.andrew.gameShop.entity.Game"--%>
 <%--@elvariable id="transactions" type="java.util.List"--%>
@@ -30,6 +42,7 @@
         background-size: cover;
     }
 </style>
+<title>${transaction_s}</title>
 <jsp:include page="header.jsp"/>
 <section class="pro-box">
     <div class="form-inline p-3">
@@ -37,19 +50,19 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2><b><fmt:message key="transactions.button"/></b></h2></div>
+                        <div class="col-sm-8"><h2><b>${transaction_s}</b></h2></div>
                     </div>
                 </div>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th><fmt:message key="id"/></th>
-                        <th><fmt:message key="user.button"/></th>
-                        <th><fmt:message key="date"/></th>
-                        <th><fmt:message key="time"/></th>
-                        <th><fmt:message key="price"/></th>
-                        <th><fmt:message key="common.status"/></th>
-                        <th><fmt:message key="actions"/></th>
+                        <th>${transction_id}</th>
+                        <th>${us_er}</th>
+                        <th>${da_te}</th>
+                        <th>${ti_me}</th>
+                        <th>${game_price}</th>
+                        <th>${sta_tus}</th>
+                        <th>${actions}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -96,9 +109,9 @@
             </div>
         </div>
     </div>
-</section>
-<div class="row justify-content-center" style="margin-top: 30px">
-    <div class="col-12 p-0">
-        <my:pagination url="/do/gameManage" pagesCount="${pagesCount}"/>
+    <div class="row justify-content-center" style="margin-top: 30px">
+        <div class="col-12 p-0">
+            <:pagination url="/do/transactionManage" pagesCount="${pagesCount}"/>
+        </div>
     </div>
-</div>
+</section>

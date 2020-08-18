@@ -9,7 +9,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
-<%@ taglib prefix="my" tagdir="/WEB-INF/jsp" %>
+
+<fmt:bundle basename="language">
+    <fmt:message key="common.users" var="users"/>
+    <fmt:message key="id" var="id"/>
+    <fmt:message key="name" var="userName"/>
+    <fmt:message key="login" var="userLogin"/>
+    <fmt:message key="actions" var="actions"/>
+    <fmt:message key="common.email" var="userEmail"/>
+    <fmt:message key="cash" var="userCash"/>
+</fmt:bundle>
+
 <%--@elvariable id="loggedUser" type="epam.andrew.gameShop.entity.User"--%>
 <%--@elvariable id="user" type="epam.andrew.gameShop.entity.User"--%>
 <%--@elvariable id="users" type="java.util.List"--%>
@@ -28,7 +38,7 @@
         background-size: cover;
     }
 </style>
-<title><fmt:message key="common.users"/></title>
+<title>${users}</title>
 <jsp:include page="header.jsp"/>
 <body>
 <section class="pro-box">
@@ -37,18 +47,18 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2><b><fmt:message key="transactions.button"/></b></h2></div>
+                        <div class="col-sm-8"><h2><b>${users}</b></h2></div>
                     </div>
                 </div>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th><fmt:message key="id"/></th>
-                        <th><fmt:message key="name"/></th>
-                        <th><fmt:message key="login"/></th>
-                        <th><fmt:message key="common.email"/></th>
-                        <th><fmt:message key="cash"/></th>
-                        <th><fmt:message key="actions"/></th>
+                        <th>${id}</th>
+                        <th>${userName}</th>
+                        <th>${userLogin}</th>
+                        <th>${userEmail}</th>
+                        <th>${userCash}</th>
+                        <th>${actions}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -74,9 +84,9 @@
             </div>
         </div>
     </div>
-</section>
-<div class="row justify-content-center" style="margin-top: 30px">
-    <div class="col-12 p-0">
-        <my:pagination url="/do/gameManage" pagesCount="${pagesCount}"/>
+    <div class="row justify-content-center" style="margin-top: 30px">
+        <div class="col-12 p-0">
+            <:pagination url="/do/gameUsers" pagesCount="${pagesCount}"/>
+        </div>
     </div>
-</div>
+</section>

@@ -5,11 +5,18 @@
   Time: 14:13
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="my" tagdir="/WEB-INF/jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
+
+<fmt:bundle basename="language">
+    <fmt:message key="games" var="games"/>
+    <fmt:message key="editGame" var="edit"/>
+    <fmt:message key="id" var="game_id"/>
+    <fmt:message key="name" var="gameName"/>
+    <fmt:message key="actions" var="actions"/>
+</fmt:bundle>
 
 <%--@elvariable id="games" type="java.util.List"--%>
 <%--@elvariable id="game" type="epam.andrew.gameShop.entity.Game"--%>
@@ -28,6 +35,7 @@
         background-size: cover;
     }
 </style>
+<title>${games}</title>
 <jsp:include page="header.jsp"/>
 <body>
 <section class="pro-box">
@@ -36,19 +44,15 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2><b><fmt:message key="publishers.button"/></b></h2></div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New
-                            </button>
-                        </div>
+                        <div class="col-sm-8"><h2><b>${edit}</b></h2></div>
                     </div>
                 </div>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th><fmt:message key="id"/></th>
-                        <th><fmt:message key="name"/></th>
-                        <th><fmt:message key="actions"/></th>
+                        <th>${game_id}</th>
+                        <th>${gameName}</th>
+                        <th>${actions}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,9 +72,10 @@
             </div>
         </div>
     </div>
-</section>
-<div class="row justify-content-center" style="margin-top: 30px">
-    <div class="col-12 p-0">
-        <my:pagination url="/do/gameManage" pagesCount="${pagesCount}"/>
+    <div class="row justify-content-center" style="margin-top: 30px">
+        <div class="col-12 p-0">
+            <:pagination url="/do/gameManage" pagesCount="${pagesCount}"/>
+        </div>
     </div>
-</div>
+</section>
+

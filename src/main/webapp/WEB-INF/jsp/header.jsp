@@ -13,21 +13,22 @@
 <fmt:bundle basename="language">
     <fmt:message key="cart.button" var="cart"/>
     <fmt:message key="logout.button" var="logout"/>
-    <fmt:message key="common.password" var="password"/>
-    <fmt:message key="profile.button" var="profile"/>
+    <fmt:message key="common.password" var="user_password"/>
+    <fmt:message key="password.button" var="change_password"/>
+    <fmt:message key="profile.button" var="user_profile"/>
     <fmt:message key="register.button" var="register"/>
-    <fmt:message key="user.button" var="user"/>
+    <fmt:message key="user.button" var="user_but"/>
     <fmt:message key="catalog.button" var="catalog"/>
     <fmt:message key="home.button" var="home"/>
     <fmt:message key="common.admin" var="admin"/>
-    <fmt:message key="common.users" var="users"/>
+    <fmt:message key="common.users" var="user_s"/>
     <fmt:message key="addGame" var="addGame"/>
-    <fmt:message key="publishers.button" var="publishers"/>
-    <fmt:message key="transactions.button" var="transactions"/>
+    <fmt:message key="publishers.button" var="publisher_s"/>
+    <fmt:message key="transactions.button" var="transaction_s"/>
     <fmt:message key="addPublisher" var="addPublisher"/>
     <fmt:message key="games" var="games"/>
-    <fmt:message key="common.email" var="email"/>
-    <fmt:message key="login.button" var="login"/>
+    <fmt:message key="common.email" var="userEmail"/>
+    <fmt:message key="login.button" var="userLogin"/>
     <fmt:message key="language.button" var="lang"/>
 </fmt:bundle>
 
@@ -63,8 +64,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="<c:url value="/do/register"/>">${register}</a></li>
                         <c:if test="${loggedUser.role.name.equals('user') || loggedUser.role.name.equals('admin')}">
-                            <li><a href="<c:url value="/do/userProfile?id=${user.id}"/>">${profile}</a></li>
-                            <li><a href="<c:url value="/do/changePassword?id=${user.id}"/>">${password}</a></li>
+                            <li><a href="<c:url value="/do/profile?id=${user.id}"/>">${user_profile}</a></li>
+                            <li><a href="<c:url value="/do/password?id=${user.id}"/>">${change_password}</a></li>
                             <li><a href="<c:url value="/do/logout"/>">${logout}</a></li>
                         </c:if>
                     </ul>
@@ -75,9 +76,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">${admin}<b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<c:url value="/do/users"/>">${users}</a></li>
-                            <li><a href="<c:url value="/do/transactionManage"/>">${transactions}</a></li>
-                            <li><a href="<c:url value="/do/publishers"/>">${publishers}</a></li>
+                            <li><a href="<c:url value="/do/users"/>">${user_s}</a></li>
+                            <li><a href="<c:url value="/do/transactionManage"/>">${transaction_s}</a></li>
+                            <li><a href="<c:url value="/do/publishers"/>">${publisher_s}</a></li>
                             <li><a href="<c:url value="/do/addPublisher"/>">${addPublisher}</a></li>
                             <li><a href="<c:url value="/do/addGame"/>">${addGame}</a></li>
                             <li><a href="<c:url value="/do/gameManage"/>">${games}</a></li>
@@ -97,15 +98,16 @@
                     <form class="navbar-form navbar-right" action="<c:url value="/do/login"/>" method="post" c>
                         <div class="form-group">
                             <label>
-                                <input type="text" name="email" placeholder="${email}" class="form-control">
+                                <input type="text" name="email" placeholder="${userEmail}" class="form-control">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="password" name="password" placeholder="${password}" class="form-control">
+                                <input type="password" name="password" placeholder="${userPassword}"
+                                       class="form-control">
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-success">${login}</button>
+                        <button type="submit" class="btn btn-success">${userLogin}</button>
                     </form>
                 </div>
             </c:if>

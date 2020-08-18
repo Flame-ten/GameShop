@@ -10,6 +10,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="success" var="success"/>
+    <fmt:message key="fail" var="fail"/>
+</fmt:bundle>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -28,67 +32,67 @@
             <c:if test="${afterRegisterFlag.equals('true')}">
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="success"/></strong>
+                    <strong>${success}</strong>
                 </div>
             </c:if>
             <c:if test="${afterProfileChangeFlag.equals('true')}">
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="success"/></strong>
+                    <strong>${success}</strong>
                 </div>
             </c:if>
             <c:if test="${afterGameAddFlag.equals('true')}">
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="success"/></strong>
+                    <strong>${success}</strong>
                 </div>
             </c:if>
             <c:if test="${afterGameEditFlag.equals('true')}">
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="success"/></strong>
+                    <strong>${success}</strong>
                 </div>
             </c:if>
             <c:if test="${afterGameDeleteFlag.equals('true')}">
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="success"/></strong>
+                    <strong>${success}</strong>
                 </div>
             </c:if>
             <<c:if test="${afterUserDeleteFlag.equals('true')}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <strong><fmt:message key="success"/></strong>
+                <strong>${success}</strong>
             </div>
         </c:if>
             <c:if test="${userDeleteError.equals('true')}">
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="fail"/></strong>
+                    <strong>${fail}</strong>
                 </div>
             </c:if>
             <c:if test="${errorBalance.equals('true')}">
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="fail"/></strong>
+                    <strong>${fail}</strong>
                 </div>
             </c:if>
             <c:if test="${errorLogin.equals('true')}">
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="fail"/></strong>
+                    <strong>${fail}</strong>
                 </div>
             </c:if>
             <c:if test="${notEnoughMoneyError.equals('true')}">
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="fail"/></strong>
+                    <strong>${fail}</strong>
                 </div>
             </c:if>
             <c:if test="${successBuy.equals('true')}">
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong><fmt:message key="fail"/></strong>
+                    <strong>${fail}</strong>
                 </div>
             </c:if>
         </div>

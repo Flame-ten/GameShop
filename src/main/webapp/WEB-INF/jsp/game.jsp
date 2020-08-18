@@ -3,6 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="publisher" var="publisher"/>
+    <fmt:message key="addToCart" var="add"/>
+    <fmt:message key="error.amount" var="error_amount"/>
+    <fmt:message key="error.authorization" var="error_auth"/>
+    <fmt:message key="common.description" var="description"/>
+</fmt:bundle>
+
 <%--@elvariable id="types" type="java.util.List"--%>
 <%--@elvariable id="products" type="java.util.List"--%>
 <%--@elvariable id="role" type="epam.andrew.gameShop.entity.Role"--%>
@@ -50,27 +58,26 @@
                         <form action="<c:url value="/do/publisher?id=${publisher.id}"/>" method="post"
                               style="margin: 0">
                             <button type="button" class="btn btn-success">
-                                <fmt:message key="publisher"/>
+                                ${publisher}
                             </button>
                         </form>
-                        <c:if test="${(loggedUser.role.name.equals('USER'))
-                                        || loggedUser.role.name.equals('ADMIN')}">
+                        <c:if test="${(loggedUser.role.name.equals('user'))
+                                        || loggedUser.role.name.equals('admin')}">
                             <c:if test="${!(requestScope.gameAmountError.equals('true'))}">
                                 <form action="<c:url value="/do/addToCart"/>" method="post" style="margin: 0">
                                     <button type="button" class="btn btn-success">
-                                        <fmt:message key="addToCart"/>
+                                            ${add}
                                     </button>
                                 </form>
                             </c:if>
 
                             <c:if test="${gameAmountError.equals('true')}">
-                                <p class="text-danger"><fmt:message key="error.amount"/></p>
+                                <p class="text-danger">${error_amount}</p>
                             </c:if>
                         </c:if>
-                        <c:if test="${!((loggedUser.role.name.equals('USER')
-                                        || loggedUser.role.name.equals('ADMIN')))}">
-                            <p class="text-secondary" style=" margin-top: 10px"><fmt:message
-                                    key="error.authorization"/></p>
+                        <c:if test="${!((loggedUser.role.name.equals('user')
+                                        || loggedUser.role.name.equals('admin')))}">
+                            <p class="text-secondary" style=" margin-top: 10px">${error_auth}</p>
                         </c:if>
                     </div>
                 </div>
@@ -80,8 +87,7 @@
             <div class="col-md-12 product-info">
                 <ul id="myTab" class="nav nav-tabs nav_tabs">
 
-                    <li class="active"><a href="#service-one" data-toggle="tab"><fmt:message
-                            key="common.description"/></a></li>
+                    <li class="active"><a href="#service-one" data-toggle="tab">${description}</a></li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="service-one">

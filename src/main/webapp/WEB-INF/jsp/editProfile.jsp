@@ -10,6 +10,33 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="localeCode" value="${pageContext.response.locale}"/>
 
+<fmt:bundle basename="language">
+    <fmt:message key="editProfile.button" var="editProfile"/>
+    <fmt:message key="common.profile" var="profile"/>
+    <fmt:message key="common.files" var="files"/>
+    <fmt:message key="name" var="userName"/>
+    <fmt:message key="error.emptyName" var="empty_name"/>
+    <fmt:message key="error.wrongName" var="wrong_name"/>
+    <fmt:message key="surname" var="userSur"/>
+    <fmt:message key="error.wrongSurname" var="wrong_sur"/>
+    <fmt:message key="error.emptySurname" var="empty_sur"/>
+    <fmt:message key="login" var="userLogin"/>
+    <fmt:message key="error.emptyLogin" var="empty_login"/>
+    <fmt:message key="error.wrongLogin" var="wrong_login"/>
+    <fmt:message key="common.email" var="userEmail"/>
+    <fmt:message key="error.emptyPhone" var="empty_phone"/>
+    <fmt:message key="error.wrongPhone" var="wrong_phone"/>
+    <fmt:message key="phone" var="userPhone"/>
+    <fmt:message key="gender" var="userGender"/>
+    <fmt:message key="user.male" var="male"/>
+    <fmt:message key="user.female" var="female"/>
+    <fmt:message key="error.emptyCountry" var="empty_country"/>
+    <fmt:message key="error.wrongCountry" var="wrong_country"/>
+    <fmt:message key="country" var="user_country"/>
+    <fmt:message key="cash" var="user_cash"/>
+    <fmt:message key="save.button" var="save"/>
+</fmt:bundle>
+
 <%--@elvariable id="loggedUser" type="epam.andrew.gameShop.entity.User"--%>
 <%--@elvariable id="user" type="epam.andrew.gameShop.entity.User"--%>
 
@@ -23,120 +50,109 @@
         background-size: cover;
     }
 </style>
-<title>Profile</title>
+<title>${editProfile}</title>
 <jsp:include page="header.jsp"/>
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title"><fmt:message key="common.profile"/></h3>
+        <h3 class="panel-title">${profile}</h3>
     </div>
     <div class="panel-body">
         <div class="row">
-            <form role="form" action="<c:url value="/do/edit/profile"/>" method="post" c>
+            <form role="form" action="<c:url value="/do/editProfile"/>" method="post" c>
                 <div class=" col-md-9 col-lg-9 ">
                     <table class="table table-user-information">
                         <tbody>
                         <tr>
-                            <td><fmt:message key="name"/></td>
+                            <td>${userName}</td>
                             <td>
                                 <label>
-                                    <input type="text" class="form-control" placeholder="<fmt:message key="name"/>"
+                                    <input type="text" class="form-control" placeholder="${userName}"
                                            value="${loggedUser.name}" name="name">
                                 </label>
-                                <c:if test="${requestScope.empty_name !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.emptyName"/></p>
+                                <c:if test="${emptyName.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${empty_name}</p>
                                 </c:if>
-                                <c:if test="${requestScope.wrong_name !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.wrongName"/></p>
+                                <c:if test="${wrongName.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${wrong_name}</p>
                                 </c:if></td>
                         </tr>
                         <tr>
-                            <td><fmt:message key="surname"/></td>
+                            <td>${userSur}</td>
                             <td><label>
-                                <input type="text" class="form-control" placeholder="<fmt:message key="surname"/>"
+                                <input type="text" class="form-control" placeholder="${userSur}"
                                        value="${loggedUser.surname}" name="surname">
                             </label>
-                                <c:if test="${requestScope.empty_surname !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.emptySurname"/></p>
+                                <c:if test="${emptySurname.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${empty_sur}></p>
                                 </c:if>
-                                <c:if test="${requestScope.wrong_surname !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.wrongSurname"/></p>
+                                <c:if test="${wrongSurname.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${wrong_sur}</p>
                                 </c:if></td>
                         </tr>
 
                         <tr>
-                            <td><fmt:message key="login"/></td>
+                            <td>${userLogin}</td>
                             <td><label>
-                                <input type="text" class="form-control" placeholder="<fmt:message key="login"/>"
+                                <input type="text" class="form-control" placeholder="${userLogin}"
                                        value="${loggedUser.login}" name="login">
                             </label>
-                                <c:if test="${requestScope.empty_login !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.emptyLogin"/></p>
+                                <c:if test="${emptyLogin.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${empty_login}</p>
                                 </c:if>
-                                <c:if test="${requestScope.wrong_login !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.wrongLogin"/></p>
+                                <c:if test="${wrongLogin.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${wrong_login}</p>
                                 </c:if></td>
                         </tr>
 
                         <tr>
-                            <td><fmt:message key="common.email"/></td>
+                            <td>${userEmail}</td>
                             <td><p>${loggedUser.email}</p></td>
                         </tr>
 
                         <tr>
-                            <td><fmt:message key="phone"/></td>
+                            <td>${userPhone}</td>
                             <td><label>
-                                <input type="text" class="form-control" placeholder="<fmt:message key="phone"/>"
+                                <input type="text" class="form-control" placeholder="${userPhone}"
                                        value="${loggedUser.phone}" name="phone">
                             </label>
-                                <c:if test="${requestScope.empty_phone_number !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.emptyPhone"/></p>
+                                <c:if test="${emptyPhone.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${empty_phone}</p>
                                 </c:if>
-                                <c:if test="${requestScope.wrong_phone_number !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.wrongPhone"/></p>
+                                <c:if test="${wrongPhone.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${wrong_phone}</p>
                                 </c:if></td>
                         </tr>
                         <tr>
 
-                            <td><fmt:message key="gender"/></td>
+                            <td>${userGender}</td>
                             <td><select name="DropGenre" id="DropGenre" class="input-xlarge">
-                                <option value="10.0"><fmt:message key="user.male"/></option>
-                                <option value="11.0"><fmt:message key="user.female"/></option>
+                                <option value="10.0">${male}</option>
+                                <option value="11.0">${female}</option>
                             </select></td>
                         </tr>
                         <tr>
-                            <td><fmt:message key="country"/></td>
+                            <td>${user_country}</td>
                             <td><label>
-                                <input type="text" class="form-control" placeholder="<fmt:message key="country"/>"
+                                <input type="text" class="form-control" placeholder="${user_country}"
                                        value="${loggedUser.country}" name="country">
                             </label>
-                                <c:if test="${requestScope.empty_country !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.emptyCountry"/></p>
+                                <c:if test="${emptyCountry.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${empty_country}</p>
                                 </c:if>
-                                <c:if test="${requestScope.wrong_country !=null}">
-                                    <p class="text-danger" style="font-size: 14px; margin:1px"><fmt:message
-                                            key="error.wrongCountry"/></p>
+                                <c:if test="${wrongCountry.equals('true')}">
+                                    <p class="text-danger" style="font-size: 14px; margin:1px">${wrong_country}</p>
                                 </c:if></td>
                         </tr>
 
                         <tr>
-                            <td><fmt:message key="cash"/></td>
+                            <td>${user_cash}</td>
                             <td><p>${loggedUser.cash}</p></td>
                         </tr>
 
                         </tbody>
                     </table>
 
-                    <button value="submit" type="submit" class="btn btn-primary"><fmt:message
-                            key="save.button"/></button>
+                    <button value="submit" type="submit" class="btn btn-primary">${save}</button>
                 </div>
             </form>
         </div>
